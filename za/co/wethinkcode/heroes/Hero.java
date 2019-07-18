@@ -39,6 +39,7 @@ public class Hero implements HeroStats {
 
 	@Override
 	public	String 		toString( ) {
-		return ( "Lo!,behold , i am " + this.heroName + " of class " + this.heroClass + " sitting at this health pool " + this.heroHitPoints );
+		String things = " this level " + this.heroLevel + " so much xp " + this.heroExperience + " deals " + this.heroAttack + " much damage and has this many defense points " + this.heroDefense;
+		return ( "Lo!,behold , i am " + this.heroName + " of class " + this.heroClass + " sitting at this health pool " + this.heroHitPoints + things );
 	}
 }
