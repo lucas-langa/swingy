@@ -1,13 +1,29 @@
 package za.co.wethinkcode.heroes;
 
-public class Hero implements HeroStats {
-	private String		heroName;
-	private String		heroClass;
-	private int			heroLevel;
-	private int			heroExperience;
-	private int			heroAttack;
-	private int			heroDefense;
-	private int			heroHitPoints;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table( name = "heroes" )
+public class Hero implements Serializable, HeroStats {
+	private static final long 		serialVersionUID = 1L;
+
+	@Column( name = "heroName")
+	private String					heroName;
+	@Column( name = "heroClass")
+	private String					heroClass;
+	@Column( name = "heroLevel")
+	private int						heroLevel;
+	@Column( name= "heroExperience")
+	private int						heroExperience;
+	@Column( name = "heroAttack")
+	private int						heroAttack;
+	@Column( name="heroDefense" )
+	private int						heroDefense;
+	@Column( name = "heroHitPoints" )
+	private int						heroHitPoints;
 
 	public void 		setHeroName( String name ){
 		this.heroName = name;

@@ -1,4 +1,5 @@
 package za.co.wethinkcode.heroes;
+
 public class FlankHeroBuilder implements HeroBuilder {
 	public Hero hero;
 
