@@ -68,10 +68,15 @@
 			<version>8.0.17</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.glassfish.main.common/glassfish-api -->
+<!--		<dependency>-->
+<!--			<groupId>org.glassfish.main.common</groupId>-->
+<!--			<artifactId>glassfish-api</artifactId>-->
+<!--			<version>5.1.0</version>-->
+<!--		</dependency>-->
 		<dependency>
-			<groupId>org.glassfish.main.common</groupId>
-			<artifactId>glassfish-api</artifactId>
-			<version>5.1.0</version>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>3.0.1-b08</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api -->
