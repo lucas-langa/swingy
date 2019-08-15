@@ -1,11 +1,9 @@
-package za.co.wethinkcode.Enemy;
-
-import za.co.wethinkcode.Enemys.Enemy;
+package za.co.wethinkcode.Enemies;
 
 public class WeakEnemyBuilder implements EnemyBuilder {
     public Enemy enemy;
 
-    pubic   WeakEnemyBuilder() {
+    public   WeakEnemyBuilder() {
         this.Enemy = new Enemy();
     }
 

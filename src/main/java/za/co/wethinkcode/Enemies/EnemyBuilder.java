@@ -1,7 +1,7 @@
-package za.co.wethinkcode.Enemy;
+package za.co.wethinkcode.Enemies;
 
 public interface EnemyBuilder {
-    public void 		EnemyName( String name );
+    public void 		buildEnemyName( String name );
     public void 		buildEnemyClass();
     public void 		buildEnemyLevel();
     public void 		buildEnemyExperience();

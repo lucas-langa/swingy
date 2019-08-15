@@ -1,4 +1,5 @@
-package za.co.wethinkcode.Enemy;
+package za.co.wethinkcode.Enemies;
 
-public class Enemy {
+public class Enemy implements EnemyStuff{
+
 }
