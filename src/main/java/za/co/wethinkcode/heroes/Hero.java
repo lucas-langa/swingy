@@ -1,5 +1,7 @@
 package za.co.wethinkcode.heroes;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,9 +22,10 @@ public class Hero implements Serializable, HeroStats {
     private Integer id;
 
     @Size(min = 3, max = 15)
+	@NotNull
 	@Column( name = "heroName")
 	private String					heroName;
-
+	@NotNull
 	@Column( name = "heroClass")
 	private String					heroClass;
 	@Column( name = "heroLevel")
@@ -77,11 +80,10 @@ public class Hero implements Serializable, HeroStats {
 		return ( "Lo!,behold , i am " + this.getHeroName() + " of class " + this.getHeroClass() + " sitting at this health pool " + this.getHeroHitPoints() + things );
 	}
 
-	@NotNull
 	public String getHeroName() {
 		return heroName;
 	}
-	@NotNull
+
 	public String getHeroClass() {
 		return heroClass;
 	}

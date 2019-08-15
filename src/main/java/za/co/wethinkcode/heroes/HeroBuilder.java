@@ -10,3 +10,4 @@ public interface HeroBuilder {
 	public void 		buildHitPoints();
 	public Hero 		getHero();
 }
+
