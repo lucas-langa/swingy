@@ -13,41 +13,25 @@ import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
-//import java.sql.Connection;
-//import java.sql.DriverManager;
-//import java.sql.SQLException;
+
 
 public class Swingy {
-
+	    public static EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("za.co.wethinkcode.Swingy");
 	public static void main(String[] args) {
-        EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("za.co.wethinkcode.Swingy");
-		ValidatorFactory factory =                                         Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-
-        Client client = new Client();
-        client.setId(11);
-        client.setName("bi");
-
-		Set<ConstraintViolation<Client>> constraintViolations = validator.validate( client );
-		if (!isEmpty(constraintViolations))
-			System.out.printf( "not  null %s\n", constraintViolations.iterator().next().getMessage());
-        Bank bank = new Bank();
-        bank.setName("wethinkcode B");
-
-        EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
-
-        entityManager.getTransaction().begin();
-
-        entityManager.persist(client);
-        entityManager.persist(bank);
-
-        entityManager.getTransaction().commit();
-
-        entityManager.close();
-//		addHero("lucas", "flank");
+		addHero("lucas", "flank");
 	}
 
 	public static void addHero(String name, String heroClass) {
-
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Hero newHero = HeroFactory.newHero(name, heroClass);
+		Set<ConstraintViolation<Hero>> constraintViolations = validator.validate( newHero );
+		if (!isEmpty(constraintViolations))
+			System.out.printf( "not  null %s\n", constraintViolations.iterator().next().getMessage());
+		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
+		entityManager.getTransaction().begin();
+		entityManager.persist(newHero);
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 }

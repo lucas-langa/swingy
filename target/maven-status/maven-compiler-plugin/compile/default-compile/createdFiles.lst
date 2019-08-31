@@ -1,0 +1,11 @@
+za/co/wethinkcode/heroes/HeroFactory.class
+za/co/wethinkcode/Bank.class
+za/co/wethinkcode/Client.class
+za/co/wethinkcode/heroes/FlankHeroBuilder.class
+za/co/wethinkcode/Swingy.class
+za/co/wethinkcode/heroes/HeroEngineer.class
+za/co/wethinkcode/heroes/Hero.class
+za/co/wethinkcode/heroes/HeroStats.class
+za/co/wethinkcode/heroes/DamageHeroBuilder.class
+za/co/wethinkcode/heroes/TankHeroBuilder.class
+za/co/wethinkcode/heroes/HeroBuilder.class

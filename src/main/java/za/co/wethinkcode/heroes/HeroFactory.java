@@ -1,7 +1,11 @@
 package za.co.wethinkcode.heroes;
 
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
+
 public abstract class HeroFactory {
-	public static Hero newHero( String name, String heroClass ) {
+	public static Hero newHero( @NotNull @NotEmpty String name, String heroClass ) {
 		Hero userHero = null;
 		HeroEngineer heroEngineer = null;
 		if ( !name.isEmpty() && heroClass == "flank" ) {

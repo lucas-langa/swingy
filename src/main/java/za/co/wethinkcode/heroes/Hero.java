@@ -1,6 +1,6 @@
 package za.co.wethinkcode.heroes;
 
-import org.hibernate.validator.constraints.NotEmpty;
+//import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +40,7 @@ public class Hero implements Serializable, HeroStats {
 	private int						heroHitPoints;
 
 	public void setId(Integer id) { this.id = id;}
-
+	/*useless*/
 	public void 		setHeroName( String name ){
 		this.heroName = name;
 	}
