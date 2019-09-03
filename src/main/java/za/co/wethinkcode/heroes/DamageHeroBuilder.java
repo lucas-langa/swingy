@@ -38,4 +38,5 @@ public class DamageHeroBuilder implements HeroBuilder {
 	public Hero 	getHero( ) {
 		return ( this.hero );
 	}
+
 }

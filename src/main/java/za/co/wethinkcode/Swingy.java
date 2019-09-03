@@ -1,5 +1,6 @@
 package za.co.wethinkcode;
 
+import org.hibernate.*;
 import za.co.wethinkcode.heroes.Hero;
 import za.co.wethinkcode.heroes.HeroFactory;
 
@@ -10,15 +11,36 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.List;
 import java.util.Set;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 
 
 public class Swingy {
 	    public static EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("za.co.wethinkcode.Swingy");
 	public static void main(String[] args) {
-		addHero("lucas", "flank");
+		addHero("jlucas", "flank");
+	}
+
+	public static List<Hero>   getHeroesFromDB(){
+		EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			List<Hero> heroes = em.createQuery("SELECT h FROM Hero h", Hero.class).getResultList();
+			return heroes;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return null;
 	}
 
 	public static void addHero(String name, String heroClass) {
@@ -27,7 +49,12 @@ public class Swingy {
 		Hero newHero = HeroFactory.newHero(name, heroClass);
 		Set<ConstraintViolation<Hero>> constraintViolations = validator.validate( newHero );
 		if (!isEmpty(constraintViolations))
-			System.out.printf( "not  null %s\n", constraintViolations.iterator().next().getMessage());
+		{
+				System.out.printf( "%s %s\n", constraintViolations.iterator().next().getConstraintDescriptor(),
+						constraintViolations.iterator().next().getMessage());
+				return ;
+		}
+
 		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(newHero);

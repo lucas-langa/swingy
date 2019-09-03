@@ -2,10 +2,7 @@ package za.co.wethinkcode.heroes;
 
 //import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -18,6 +15,7 @@ public class Hero implements Serializable, HeroStats {
 	private static final long 		serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue
     @Column(name="id")
     private Integer id;
 
@@ -69,7 +67,7 @@ public class Hero implements Serializable, HeroStats {
 		this.heroHitPoints = hitPoints;
 	}
 
-	@NotNull
+
 	public Integer getId() {
 		return id;
 	}
