@@ -14,12 +14,7 @@ import javax.validation.ValidatorFactory;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
-
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 
 
@@ -28,7 +23,7 @@ public class Swingy {
 	public static void main(String[] args) {
 		List<Hero> heroes = getHeroesFromDB();
 		Hero player = heroes.get(0);
-//		player.setHeroLevel(19);
+		player.setHeroLevel(19);
 		player.setHeroExperience(player.getHeroExperience() + 20);
 		updateHero(player);
 	}
@@ -71,5 +66,6 @@ public class Swingy {
 		entityManager.getTransaction().begin();
 		entityManager.merge(player);
 		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 }
