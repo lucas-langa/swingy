@@ -26,7 +26,11 @@ import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 public class Swingy {
 	    public static EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("za.co.wethinkcode.Swingy");
 	public static void main(String[] args) {
-		addHero("jlucas", "flank");
+		List<Hero> heroes = getHeroesFromDB();
+		Hero player = heroes.get(0);
+//		player.setHeroLevel(19);
+		player.setHeroExperience(player.getHeroExperience() + 20);
+		updateHero(player);
 	}
 
 	public static List<Hero>   getHeroesFromDB(){
@@ -60,5 +64,12 @@ public class Swingy {
 		entityManager.persist(newHero);
 		entityManager.getTransaction().commit();
 		entityManager.close();
+	}
+
+	public static void  updateHero(Hero player){
+		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
+		entityManager.getTransaction().begin();
+		entityManager.merge(player);
+		entityManager.getTransaction().commit();
 	}
 }
