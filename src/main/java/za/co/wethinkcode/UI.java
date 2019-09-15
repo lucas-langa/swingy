@@ -49,6 +49,25 @@ public class UI {
         window.add(startButtonPanel);
         window.setVisible(true);
 
+	// GAME SCREEN
+		mainTextPanel = new JPanel();
+		mainTextPanel.setBounds(100, 100, 600, 250);
+		mainTextPanel.setBackground(Color.black);
+		window.add(mainTextPanel);
+		mainTextArea = new JTextArea("This game will be awesome");
+		mainTextArea.setBounds(100,100,600,250);
+		mainTextArea.setBackground(Color.black);
+		mainTextArea.setForeground(Color.white);
+		mainTextArea.setFont(normalFont);
+		mainTextArea.setLineWrap(true);
+		mainTextArea.setEditable(false);
+		mainTextArea.setWrapStyleWord(true);
+		mainTextPanel.add(mainTextArea);
+		choiceButtonPanel = new JPanel();
+		choiceButtonPanel.setBounds(250, 350, 300, 150);
+		choiceButtonPanel.setBackground(Color.black);
+		choiceButtonPanel.setLayout(new GridLayout(4,1));;
+		window.add(choiceButtonPanel);
 
         choice1 = new JButton("Choice 1");
         choice1.setBackground(Color.black);
