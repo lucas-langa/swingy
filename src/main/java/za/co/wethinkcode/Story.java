@@ -2,7 +2,7 @@ package za.co.wethinkcode;
 
 import java.beans.Visibility;
 import java.text.BreakIterator;
-
+/* 
 public class Story {
 	Game game;
 	UI ui;
@@ -276,4 +276,4 @@ public class Story {
 		game.nextPosition3 = "";
 		game.nextPosition4 = "";
 	}
-}
+} */

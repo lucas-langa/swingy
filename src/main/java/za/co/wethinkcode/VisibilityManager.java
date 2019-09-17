@@ -1,6 +1,6 @@
-public package za.co.wethinkcode;
+package za.co.wethinkcode;
 
-class VisibilityManager {
+public class VisibilityManager {
 
 	UI ui;
 

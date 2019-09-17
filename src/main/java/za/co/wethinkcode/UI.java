@@ -1,4 +1,8 @@
+package za.co.wethinkcode;
+
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -6,12 +10,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import za.co.wethinkcode.Game.ChoiceHandler;
+
 public class UI {
     JFrame window;
     JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, imagePanel;
     JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName, imageLabel;
-    Font titleFont = new Font("Times New Roman", font.PLAIN, 90);
-    Font normalFont = new Font("Times New Roman", font.PLAIN, 26);
+    Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
+    Font normalFont = new Font("Times New Roman", Font.PLAIN, 26);
     JButton startButton, choice1, choice2, choice3, choice4;
     JTextArea mainTextArea;
 
@@ -75,7 +81,7 @@ public class UI {
         choice1.setFont(normalFont);
         choice1.setFocusPainted(false);
         choice1.addActionListener(cHandler);
-        choice1.addActionCommand("c1");
+        choice1.setActionCommand("c1");
         choiceButtonPanel.add(choice1);
 
         choice2 = new JButton("Choice 2");
@@ -84,7 +90,7 @@ public class UI {
         choice2.setFont(normalFont);
         choice2.setFocusPainted(false);
         choice2.addActionListener(cHandler);
-        choice2.addActionCommand("c2");
+        choice2.setActionCommand("c2");
         choiceButtonPanel.add(choice2);
 
         choice3 = new JButton("Choice 3");
@@ -93,7 +99,7 @@ public class UI {
         choice3.setFont(normalFont);
         choice3.setFocusPainted(false);
         choice3.addActionListener(cHandler);
-        choice3.addActionCommand("c3");
+        choice3.setActionCommand("c3");
         choiceButtonPanel.add(choice3);
 
         choice4 = new JButton("Choice 4");
@@ -102,7 +108,7 @@ public class UI {
         choice4.setFont(normalFont);
         choice4.setFocusPainted(false);
         choice4.addActionListener(cHandler);
-        choice4.addActionCommand("c4");
+        choice4.setActionCommand("c4");
         choiceButtonPanel.add(choice4);
 
         playerPanel = new JPanel();
