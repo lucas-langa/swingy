@@ -8,7 +8,7 @@ public class Game{
     ChoiceHandler cHandler = new ChoiceHandler();
     UI ui = new UI();
     VisibilityManager vm = new VisibilityManager(ui);
-    // Story story= new Story(this, ui, vm);
+     Story story= new Story(this, ui, vm);
 
     String nextPosition1, nextPosition2, nextPosition3, nextPosition4;
 
@@ -19,8 +19,9 @@ public class Game{
     public Game()
     {
         ui.createUI(cHandler);
+        vm.showTitleScreen(); 
       /*   story.defaultSetup();
-        vm.showTitleScreen(); */
+        */
     }
 
     public class ChoiceHandler implements ActionListener{
