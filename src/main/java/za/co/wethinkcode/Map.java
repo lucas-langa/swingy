@@ -26,6 +26,7 @@ public class Map {
 		map.displayMap();
 
 		System.out.printf("My hero goes here %d\n",map.getMapMid());
+		
 	}
 
 //	public    Map(String typeS)
