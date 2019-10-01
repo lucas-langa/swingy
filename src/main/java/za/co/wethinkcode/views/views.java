@@ -1,5 +1,5 @@
-package za.co.wethinkcode.views;
-
-public class views {
-	private 
-}
+//package za.co.wethinkcode.views;
+//
+//public class views {
+//	private
+//}

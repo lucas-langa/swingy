@@ -44,7 +44,7 @@ public class Model {
 		Set<ConstraintViolation<Hero>> constraintViolations = validator.validate( newHero );
 		if (!isEmpty(constraintViolations))
 		{
-				System.out.printf( "%s %s\n", constraintViolations.iterator().next().getConstraintDescriptor(),
+				System.out.printf("%s %s\n", constraintViolations.iterator().next().getConstraintDescriptor(),
 						constraintViolations.iterator().next().getMessage());
 				return ;
 		}
@@ -77,9 +77,9 @@ public class Model {
 		}
 	}
 
-	public	void    createGameMap()
+	private	void    createGameMap()
 	{
-		int heroLevel = player.getHeroLevel();
+		int heroLevel = this.player.getHeroLevel();
 		this.y = (heroLevel - 1) * 5 + 10 - (heroLevel % 2);
 		this.x = this.y;
 		this.map = new int[this.y][this.x];
@@ -88,7 +88,6 @@ public class Model {
 		heroY = pos;
 		heroX = pos;
 		this.map[pos][pos] = 'h';
-		displayMap();
 	}
 
 	public boolean checkEdge(){
@@ -117,8 +116,10 @@ public class Model {
 		return this.map;
 	}
 
-	public void setMap(int mapSize)
+	public void setMap()
 	{
-		populateMap(mapSize, mapSize);
+		createGameMap();
 	}
+
+	
 }
