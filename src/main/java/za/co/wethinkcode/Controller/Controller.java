@@ -7,11 +7,26 @@ public class Controller {
 	private Model model;
 	// private view view;
 	private ConsoleViews consoleViews;
+	private String gameMode;
 
-	public Controller(Model theModel, ConsoleViews theconsoleViews)
+	public Controller(Model theModel, ConsoleViews theconsoleViews, String gameMode)
 	{
+		if (gameMode.equalsIgnoreCase("console"))
+		{
+			consoleViews = theconsoleViews;
+			gameMode = "console";
+		}
+		else if (gameMode.equalsIgnoreCase("gui")){
+			return ;
+		}
 		model = theModel;
-		consoleViews = theconsoleViews;
 	}
-		
+
+	public void runGame()
+	{
+		if (gameMode.equals("console"))
+		{
+			consoleViews.welcomeText();
+		}
+	}
 }

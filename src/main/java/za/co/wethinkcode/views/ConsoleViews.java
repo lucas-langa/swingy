@@ -9,21 +9,21 @@ public class ConsoleViews
 	private String greetings;
 	private String PlayerName;
 
-	public static void main(String args[])
-	{
-		List<Hero> heroes = new ArrayList<Hero>();
-		Hero lucas = HeroFactory.newHero("lucas", "flank");
-		heroes.add(lucas);
-		// peasantStats(lucas);
-		listHeroes(heroes);
-	}
+	// public static void main(String args[])
+	// {
+	// 	List<Hero> heroes = new ArrayList<Hero>();
+	// 	Hero lucas = HeroFactory.newHero("lucas", "flank");
+	// 	heroes.add(lucas);
+	// 	// peasantStats(lucas);
+	// 	listHeroes(heroes);
+	// }
 
 	public ConsoleViews(String name)
 	{
 		PlayerName = name;
 	}
 
-	public static void welcomeText( )
+	public void welcomeText( )
 	{
 		System.out.print("/*********************************************************/\n"+
 					"/*        Welcome to a text based semi violent RPG       */\n"+
@@ -33,7 +33,7 @@ public class ConsoleViews
 					"/*********************************************************/\n");
 	}
 	
-	public static void encounterText()
+	public void encounterText()
 	{
 		System.out.printf("You've encountered an enemy\nWhat do you want to do?\n1.Fight\n2.Run Away\n");
 	}
@@ -49,7 +49,7 @@ public class ConsoleViews
 		}
 	}
 
-	public static void 	peasantStats(Hero Peasant)
+	public void 	peasantStats(Hero Peasant)
 	{
 		System.out.println("Hero Name : " + Peasant.getHeroName());
 		System.out.println("Hero class : " + Peasant.getHeroClass());
@@ -60,7 +60,7 @@ public class ConsoleViews
 		System.out.println("Hero Experience " + Peasant.getHeroExperience());
 	}
 
-	public static void listHeroes(List<Hero> heroes)
+	public void listHeroes(List<Hero> heroes)
 	{
 		for (Hero players : heroes)
 		{
