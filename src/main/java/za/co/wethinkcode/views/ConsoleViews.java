@@ -35,19 +35,27 @@ public class ConsoleViews
 		PlayerName = name;
 	}
 
-	public void welcomeText( )
+	public static void welcomeText( )
 	{
 		int action = -1;
 		Scanner input= new Scanner(System.in);
 	
-		while (action != 1  && action != 2 )
-		{
-			System.out.print("/*********************************************************/\n"+
+		System.out.print("/*********************************************************/\n"+
 						"/*        Welcome to a text based semi violent RPG       */\n"+
 						"/*        To Start:                                      */\n"+
 						"/*        1.Select an existing hero                      */\n"+
 						"/*	  2.Create a New Hero                            */\n"+
 						"/*********************************************************/\n");
+		while (action != 1  && action != 2 )
+		{
+			if (input.hasNext())
+			{
+				action = input.nextInt();
+				if (action != 1 || action != 2)
+					continue;
+				else
+					break;
+			}
 		}
 	}
 	
@@ -58,7 +66,7 @@ public class ConsoleViews
 		
 		while (action != 1 && action != 2 )
 		{
-			System.out.printf("You've encountered an enemy\nWhat do you want to do?\n1.Fight\n2.Run Away\n");
+		
 			// input.hasNext();
 			action = input.nextInt();
 		}

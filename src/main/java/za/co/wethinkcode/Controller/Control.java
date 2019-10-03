@@ -7,6 +7,6 @@ public class Control
 	public static void main(String[] args) {
 		ConsoleViews views = new ConsoleViews("MEH"); 
 		Model model = new Model();
-		Controller controller = new Controller(model, views);
+//		Controller controller = new Controller(model, views);
 	}
 }
