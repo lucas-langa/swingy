@@ -1,18 +1,19 @@
 package za.co.wethinkcode.views;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 import za.co.wethinkcode.heroes.*;
+import za.co.wethinkcode.MotherOfException;
 
 public class ConsoleViews
 {
 	private String greetings;
 	private String PlayerName;
-	public static void main(String args[])
-	{
+	public static void main(String args[]) {
 		List<Hero> heroes = new ArrayList<Hero>();
 		Hero lucas = HeroFactory.newHero("lucas", "flank");
 		heroes.add(lucas);
@@ -21,7 +22,12 @@ public class ConsoleViews
 		// // peasantStats(lucas);
 		// listHeroes(heroes);
 		// encounterText();
-		selectHero(heroes);
+		try {
+			selectHero(heroes);
+		} catch(MotherOfException a){
+			System.out.println(a.getMessage());
+		}
+		// divisionExample();
 	}
 
 	public ConsoleViews(String name)
@@ -49,7 +55,7 @@ public class ConsoleViews
 	{
 		int action = -1;
 		Scanner input= new Scanner(System.in);
-	
+		
 		while (action != 1 && action != 2 )
 		{
 			System.out.printf("You've encountered an enemy\nWhat do you want to do?\n1.Fight\n2.Run Away\n");
@@ -81,33 +87,67 @@ public class ConsoleViews
 		System.out.println("Hero Experience " + Peasant.getHeroExperience());
 	}
 	
-	public static void selectHero(List<Hero> heroes)
+	public static void selectHero(List<Hero> heroes) throws MotherOfException
 	{
 		int limit = heroes.size();
 		int choice;
-		choice = limit > 0 ? limit + 1 : 0;
+		int loop = 0;
+
 		Scanner input = new Scanner(System.in);
-		if (limit > 0){
+		if (limit > 0) {
 			System.out.println("Here's a list of available heroes, choose by typing the corresponding number and press enter: \n");
 			int i = 1;
 			for (Hero players : heroes)
 			{
-				System.out.print(i++ + "\n");
+				System.out.print("\nHero number "+ i++ + "\n\n");
 				peasantStats(players);
 			}
-			while (choice > limit || choice == 0)
-			{
-				if (input.hasNext())
-				{
-					try {
-						choice = input.nextInt();
-					} catch (InputMismatchException e) {
-						System.out.println("numbers only peasant");
-						choice = 0;
-						// throw new InputMismatchException();
-					} 
-				}		
+			do {
+				try {
+					choice = input.nextInt();
+					if (choice > limit || choice == limit || choice == 0)
+						throw new MotherOfException("I gave you a chance to choose a hero and you chose one that doesn't exist, restart the program and think carefully about your choices.");
+					loop = 1;
+				} catch (InputMismatchException im) {
+					System.out.println("numbers only, peasant");
+				}
+				catch (NoSuchElementException nose){
+					System.out.println("Something happened, try again");
+					loop = 0;
+				}
+				catch (IllegalStateException ise){
+					System.out.println("OOf");
+					loop = 0;
+				}
+				input.next();
 			}
+			while (loop == 0);
+			input.close();
 		}
+	}
+
+	public static void divisionExample()
+	{
+		Scanner input = new Scanner(System.in);
+		int numerator;
+		int denominator;
+		int sum;
+		int x = 0;
+		do {
+			try {
+				System.out.println("Enter numerator: ");
+				numerator = input.nextInt();
+				System.out.println("Enter Denominator: ");
+				denominator = input.nextInt();
+				sum = numerator/denominator;
+				System.out.println(sum);
+				x = 2;
+				input.close();
+			}
+			catch(Exception e){
+				System.out.println("No.");
+			}
+			input.nextLine();
+		} while (x == 0);
 	}
 }
