@@ -3,22 +3,25 @@ package za.co.wethinkcode.views;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+
 import za.co.wethinkcode.heroes.*;
 
 public class ConsoleViews
 {
 	private String greetings;
 	private String PlayerName;
-	
-
 	public static void main(String args[])
 	{
-		// List<Hero> heroes = new ArrayList<Hero>();
-		// Hero lucas = HeroFactory.newHero("lucas", "flank");
-		// heroes.add(lucas);
+		List<Hero> heroes = new ArrayList<Hero>();
+		Hero lucas = HeroFactory.newHero("lucas", "flank");
+		heroes.add(lucas);
+		Hero kerane = HeroFactory.newHero("kerane", "damage");
+		heroes.add(kerane);
 		// // peasantStats(lucas);
 		// listHeroes(heroes);
-		encounterText();
+		// encounterText();
+		selectHero(heroes);
 	}
 
 	public ConsoleViews(String name)
@@ -76,7 +79,7 @@ public class ConsoleViews
 		}
 	}
 
-	public void 	peasantStats(Hero Peasant)
+	public static void 	peasantStats(Hero Peasant)
 	{
 		System.out.println("Hero Name : " + Peasant.getHeroName());
 		System.out.println("Hero class : " + Peasant.getHeroClass());
@@ -86,12 +89,34 @@ public class ConsoleViews
 		System.out.println("Hero HP : " + Peasant.getHeroHitPoints());
 		System.out.println("Hero Experience " + Peasant.getHeroExperience());
 	}
-
-	public void listHeroes(List<Hero> heroes)
+	
+	public static void selectHero(List<Hero> heroes)
 	{
-		for (Hero players : heroes)
-		{
-			peasantStats(players);
+		int limit = heroes.size();
+		int choice;
+		choice = limit > 0 ? limit + 1 : 0;
+		Scanner input = new Scanner(System.in);
+		if (limit > 0){
+			System.out.println("Here's a list of available heroes, choose by typing the corresponding number and press enter: \n");
+			int i = 1;
+			for (Hero players : heroes)
+			{
+				System.out.print(i++ + "\n");
+				peasantStats(players);
+			}
+			while (choice > limit || choice == 0)
+			{
+				if (input.hasNext())
+				{
+					try {
+						choice = input.nextInt();
+					} catch (InputMismatchException e) {
+						System.out.println("numbers only peasant");
+						choice = 0;
+						// throw new InputMismatchException();
+					} 
+				}		
+			}
 		}
 	}
 }
