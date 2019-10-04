@@ -3,16 +3,18 @@ package za.co.wethinkcode.views;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-
 import za.co.wethinkcode.heroes.*;
 import za.co.wethinkcode.MotherOfException;
 
-public class ConsoleViews
-{
+public class ConsoleViews {
 	private String greetings;
 	private String PlayerName;
+
 	public static void main(String args[]) {
 		List<Hero> heroes = new ArrayList<Hero>();
 		Hero lucas = HeroFactory.newHero("lucas", "flank");
@@ -22,34 +24,32 @@ public class ConsoleViews
 		// // peasantStats(lucas);
 		// listHeroes(heroes);
 		// encounterText();
-		try {
-			selectHero(heroes);
-		} catch(MotherOfException a){
-			System.out.println(a.getMessage());
-		}
+		// try {
+		// selectHero(heroes);
+		// } catch(MotherOfException a){
+		// System.out.println(a.getMessage());
+		// }
 		// divisionExample();
+		newHeroClass();
+		// newHeroName();
 	}
 
-	public ConsoleViews(String name)
-	{
+	public ConsoleViews(String name) {
 		PlayerName = name;
 	}
 
-	public static void welcomeText( )
-	{
+	public static void welcomeText() {
 		int action = -1;
-		Scanner input= new Scanner(System.in);
-	
-		System.out.print("/*********************************************************/\n"+
-						"/*        Welcome to a text based semi violent RPG       */\n"+
-						"/*        To Start:                                      */\n"+
-						"/*        1.Select an existing hero                      */\n"+
-						"/*	  2.Create a New Hero                            */\n"+
-						"/*********************************************************/\n");
-		while (action != 1  && action != 2 )
-		{
-			if (input.hasNext())
-			{
+		Scanner input = new Scanner(System.in);
+
+		System.out.print("/*********************************************************/\n"
+				+ "/*        Welcome to a text based semi violent RPG       */\n"
+				+ "/*        To Start:                                      */\n"
+				+ "/*        1.Select an existing hero                      */\n"
+				+ "/*	  2.Create a New Hero                            */\n"
+				+ "/*********************************************************/\n");
+		while (action != 1 && action != 2) {
+			if (input.hasNext()) {
 				action = input.nextInt();
 				if (action != 1 || action != 2)
 					continue;
@@ -59,12 +59,45 @@ public class ConsoleViews
 		}
 	}
 	
+	private void 	clearScreen()
+	{
+		System.out.print("\033[H\033[2J");  
+		System.out.flush();  
+	}
+
+	public static void 	newHeroClass(){
+		System.out.println("/*********************************************************/\n"+
+							"/*	Choose a hero Class:                             */\n"+
+							"/*	1.Flank                                          */\n"+
+							"/*	2.Damage                                         */\n"+
+							"/*	3.Tank                                           */\n"+
+							"/*********************************************************/\n");
+	}
+
+	public static void 	newHeroName(){
+		@NotNull
+		@Size(min=3, max=15)
+		String name;
+		Scanner input = new Scanner(System.in);
+		System.out.println("/*********************************************************/\n"+
+							"/*	Give your hero a name : 		         */\n"+
+							"/*	at least 3 characters in length with a max of 15 */\n"+
+							"/*********************************************************/\n");
+		while (true){
+			try{
+				name = input.next();
+			}catch(Exception e){
+
+			}
+		}
+	}
+	
 	public static void encounterText()
 	{
 		int action = -1;
 		Scanner input= new Scanner(System.in);
 		
-		while (action != 1 && action != 2 )
+		while (action != 1 && action != 2)
 		{
 		
 			// input.hasNext();
@@ -131,7 +164,7 @@ public class ConsoleViews
 			}
 			while (loop == 0);
 			input.close();
-		}
+		}			
 	}
 
 	public static void divisionExample()
