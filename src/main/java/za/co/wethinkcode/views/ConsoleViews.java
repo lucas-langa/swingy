@@ -34,11 +34,11 @@ public class ConsoleViews {
 		// newHeroName();
 	}
 
-	public ConsoleViews(String name) {
-		PlayerName = name;
+	public ConsoleViews() {
+		
 	}
 
-	public static void welcomeText() {
+	public  void welcomeText() {
 		int action = -1;
 		Scanner input = new Scanner(System.in);
 

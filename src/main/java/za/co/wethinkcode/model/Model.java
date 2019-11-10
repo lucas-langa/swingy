@@ -13,7 +13,6 @@ import javax.validation.ValidatorFactory;
 import javax.persistence.Persistence;
 import javax.validation.ConstraintViolation;
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
-import za.co.wethinkcode.GameMap;
 
 public class Model {
 	public static EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("za.co.wethinkcode.Swingy");

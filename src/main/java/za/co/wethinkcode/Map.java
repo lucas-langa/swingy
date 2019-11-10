@@ -21,7 +21,6 @@ public class Map {
 		map.displayMap();
 
 
-//		map.right(y, x);
 		System.out.println("\n");
 		map.displayMap();
 

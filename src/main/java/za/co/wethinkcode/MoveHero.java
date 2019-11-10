@@ -1,4 +1,4 @@
-// import GameMap;
+package za.co.wethinkcode;
 
 public class MoveHero {
 	public static void     moveUp(int currentY, int currentX, GameMap map){

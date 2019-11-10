@@ -1,5 +1,4 @@
 package za.co.wethinkcode.Controller;
-import java.awt.event.ActionListener;
 import za.co.wethinkcode.views.ConsoleViews;
 import 	za.co.wethinkcode.model.Model;
 
@@ -9,8 +8,15 @@ public class Controller {
 	private ConsoleViews consoleViews;
 	private String gameMode;
 
+	public static void main(String[] args) {
+		Model model = new Model();
+		ConsoleViews consoleViews = new ConsoleViews();
+		Controller gamecontroller = new Controller(model, consoleViews, "console");
+
+	}
 	public Controller(Model theModel, ConsoleViews theconsoleViews, String gameMode)
 	{
+		this.model = theModel;
 		if (gameMode.equalsIgnoreCase("console"))
 		{
 			consoleViews = theconsoleViews;
