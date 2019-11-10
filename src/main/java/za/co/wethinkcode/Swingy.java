@@ -1,6 +1,3 @@
-
-
-
 package za.co.wethinkcode;
 
 import org.hibernate.*;
