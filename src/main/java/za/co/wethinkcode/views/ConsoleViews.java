@@ -80,6 +80,8 @@ public class ConsoleViews
 
 	public void listHeroes(List<Hero> heroes)
 	{
+		int action = -1;
+		Scanner input = new Scanner(System.in);
 		for (Hero players : heroes)
 		{
 			peasantStats(players);
