@@ -26,7 +26,7 @@ public class Swingy {
 	// Persistence.createEntityManagerFactory("za.co.wethinkcode.Swingy");
 	public static void main(String[] args) {
 		// createTable();
-		addHero("name", "flank");
+		addHero("", "flank");
 		// List<Hero> heroes = getHeroesFromDB();
 		// Hero player = heroes.get(0);
 		// player.setHeroLevel(19);
@@ -41,8 +41,8 @@ public class Swingy {
 			c = connect();
 			statement = c.createStatement();
 			String sql = "CREATE TABLE Heroes (h_id INTEGER PRIMARY KEY AUTOINCREMENT," + "heroName TEXT NOT NULL,"
-					+ "heroClass TEXT NOT NULL," + "heroLevel INTEGER NOT NULL," + "heroAttack INTEGER,"
-					+ "heroExperience INTEGER," + "heroDefense INTEGER," + "heroHitPoints INTEGER)";
+					+ "heroClass TEXT NOT NULL," + "heroLevel INTEGER DEFAULT 0," + "heroAttack INTEGER DEFAULT 0,"
+					+ "heroExperience INTEGER DEFAULT 0 ," + "heroDefense INTEGER DEFAULT 0," + "heroHitPoints INTEGER DEFAULT 0)";
 					System.out.print("new table");
 			statement.executeUpdate(sql);
 			statement.close();
