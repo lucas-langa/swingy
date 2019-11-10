@@ -25,7 +25,8 @@ public class Swingy {
 	// public static EntityManagerFactory ENTITY_MANAGER_FACTORY =
 	// Persistence.createEntityManagerFactory("za.co.wethinkcode.Swingy");
 	public static void main(String[] args) {
-		createTable();
+		// createTable();
+		addHero("name", "flank");
 		// List<Hero> heroes = getHeroesFromDB();
 		// Hero player = heroes.get(0);
 		// player.setHeroLevel(19);
@@ -40,7 +41,7 @@ public class Swingy {
 			c = connect();
 			statement = c.createStatement();
 			String sql = "CREATE TABLE Heroes (h_id INTEGER PRIMARY KEY AUTOINCREMENT," + "heroName TEXT NOT NULL,"
-					+ "heroClass TEXT NOT NULL," + "heroLevel TEXT NOT NULL," + "heroAttack INTEGER,"
+					+ "heroClass TEXT NOT NULL," + "heroLevel INTEGER NOT NULL," + "heroAttack INTEGER,"
 					+ "heroExperience INTEGER," + "heroDefense INTEGER," + "heroHitPoints INTEGER)";
 					System.out.print("new table");
 			statement.executeUpdate(sql);
@@ -98,19 +99,31 @@ public class Swingy {
 		return null;
 	}
 
-	public static void addHero(String name, String heroClass) {
+	public static void addHero(String heroName, String heroClass) {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
-		Hero newHero = HeroFactory.newHero(name, heroClass);
+		Hero newHero = HeroFactory.newHero(heroName, heroClass);
 		Set<ConstraintViolation<Hero>> constraintViolations = validator.validate(newHero);
 		if (!isEmpty(constraintViolations)) {
 			System.out.printf("%s %s\n", constraintViolations.iterator().next().getConstraintDescriptor(),
 					constraintViolations.iterator().next().getMessage());
 			return;
 		}
-
-		String sql = "INSERT INTO Heroes (heroName, heroClass) VALUES(" +name +"," +heroClass + ")";
-
+		else
+		{
+			String sql = "INSERT INTO Heroes(heroName, heroClass) VALUES(" + "'"+heroName + "'"+",'" +heroClass + "')";
+			try {
+				Connection con = connect();
+				Statement statement = con.createStatement();
+				statement.executeUpdate(sql);
+				statement.close();
+				con.close();
+				System.out.println("DONE");
+			} catch (SQLException e) {
+					System.err.println(e.getClass().getName() + ": " + e.getMessage());
+					System.exit(0);
+			}
+		}
 		// EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
 		// entityManager.getTransaction().begin();
 		// entityManager.persist(newHero);
