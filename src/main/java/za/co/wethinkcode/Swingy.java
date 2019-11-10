@@ -3,10 +3,6 @@ package za.co.wethinkcode;
 
 import za.co.wethinkcode.heroes.Hero;
 import za.co.wethinkcode.heroes.HeroFactory;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -14,7 +10,9 @@ import javax.validation.ValidatorFactory;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.HibernateException;
-
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.EntityManager;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
