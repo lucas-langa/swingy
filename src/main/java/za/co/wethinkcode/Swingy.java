@@ -1,6 +1,6 @@
 package za.co.wethinkcode;
 
-import org.hibernate.*;
+
 import za.co.wethinkcode.heroes.Hero;
 import za.co.wethinkcode.heroes.HeroFactory;
 
@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 import org.hibernate.HibernateException;
 
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -24,7 +25,7 @@ public class Swingy {
 	// public static EntityManagerFactory ENTITY_MANAGER_FACTORY =
 	// Persistence.createEntityManagerFactory("za.co.wethinkcode.Swingy");
 	public static void main(String[] args) {
-		createDatabase();
+		createTable();
 		// List<Hero> heroes = getHeroesFromDB();
 		// Hero player = heroes.get(0);
 		// player.setHeroLevel(19);
@@ -32,23 +33,37 @@ public class Swingy {
 		// updateHero(player);
 	}
 
-	public static void connect() {
+	public static void createTable() {
+		Connection c = null;
+		Statement statement = null;
+		try {
+			c = connect();
+			statement = c.createStatement();
+			String sql = "CREATE TABLE Heroes (h_id INTEGER PRIMARY KEY AUTOINCREMENT," + "heroName TEXT NOT NULL,"
+					+ "heroClass TEXT NOT NULL," + "heroLevel TEXT NOT NULL," + "heroAttack INTEGER,"
+					+ "heroExperience INTEGER," + "heroDefense INTEGER," + "heroHitPoints INTEGER)";
+					System.out.print("new table");
+			statement.executeUpdate(sql);
+			statement.close();
+			c.close();
+		} catch (Exception e) {
+
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+
+		}
+	}
+
+	public static Connection connect() {
 		Connection conn = null;
 		try {
-			String url = "jdbc:sqlite:/usr/bin/sqlite3";
+			String url = "jdbc:sqlite:heroes.db";
 			conn = DriverManager.getConnection(url);
-			System.out.println("Connected to sqlite");
+			return conn;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-		} finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException ex) {
-				System.out.println(ex.getMessage());
-			}
 		}
+		return null;
 	}
 
 	public static void createDatabase() {
@@ -94,18 +109,20 @@ public class Swingy {
 			return;
 		}
 
-		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(newHero);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		String sql = "INSERT INTO Heroes (heroName, heroClass) VALUES(" +name +"," +heroClass + ")";
+
+		// EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
+		// entityManager.getTransaction().begin();
+		// entityManager.persist(newHero);
+		// entityManager.getTransaction().commit();
+		// entityManager.close();
 	}
 
-	public static void updateHero(Hero player) {
-		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.merge(player);
-		entityManager.getTransaction().commit();
-		entityManager.close();
-	}
+	// public static void updateHero(Hero player) {
+	// 	EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
+	// 	entityManager.getTransaction().begin();
+	// 	entityManager.merge(player);
+	// 	entityManager.getTransaction().commit();
+	// 	entityManager.close();
+	// }
 }
