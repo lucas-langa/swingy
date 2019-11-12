@@ -1,15 +1,11 @@
 package za.co.wethinkcode.heroes;
 
-//import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-
-@Entity
-@Table( name = "heroes" )
 public class Hero implements Serializable, HeroStats {
 
 	private static final long 		serialVersionUID = 1L;
@@ -19,22 +15,17 @@ public class Hero implements Serializable, HeroStats {
     @Column(name="id")
     private Integer id;
 
-    @Size(min = 3, max = 15)
-	@NotNull
-	@Column( name = "heroName")
+	@NotNull(message = "hero name Should not be null")
+    @Size(message = "hero name should be at least 3 characters long",min = 3, max = 15)
+	@NotBlank(message = "You cannot have a blank hero name")
 	private String					heroName;
-	@NotNull
-	@Column( name = "heroClass")
+	@NotNull(message = "hero class can't be null, Not funny ")
+	@NotBlank(message = "hero class Should not be blank")
 	private String					heroClass;
-	@Column( name = "heroLevel")
 	private int						heroLevel;
-	@Column( name= "heroExperience")
 	private int						heroExperience;
-	@Column( name = "heroAttack")
 	private int						heroAttack;
-	@Column( name="heroDefense" )
 	private int						heroDefense;
-	@Column( name = "heroHitPoints" )
 	private int						heroHitPoints;
 
 	public void setId(Integer id) { this.id = id;}

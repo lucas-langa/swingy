@@ -1,20 +1,23 @@
 package za.co.wethinkcode.heroes;
 
+import javax.persistence.Entity;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@Entity
 public abstract class HeroFactory {
-	public static Hero newHero( @NotNull  String name, String heroClass ) {
+	public static Hero newHero( @NotNull @NotBlank String name, @NotNull @NotBlank String heroClass ) {
 		Hero userHero = null;
 		HeroEngineer heroEngineer = null;
-		if ( !name.isEmpty() && heroClass == "flank" ) {
+		if (heroClass == "flank" ) {
 			heroEngineer = new HeroEngineer( new FlankHeroBuilder() );
 			heroEngineer.makeHero( name );
 			userHero = heroEngineer.getHero();
-		} else if ( !name.isEmpty() && heroClass == "damage" ) {
+		} else if (heroClass == "damage" ) {
 			heroEngineer = new HeroEngineer( new DamageHeroBuilder() );
 			heroEngineer.makeHero( name );
 			userHero = heroEngineer.getHero();
-		} else if ( !name.isEmpty() && heroClass == "tank") {
+		} else if (heroClass == "tank") {
 			heroEngineer = new HeroEngineer( new TankHeroBuilder() );
 			heroEngineer.makeHero( name );
 			userHero = heroEngineer.getHero();

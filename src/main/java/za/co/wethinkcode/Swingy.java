@@ -24,7 +24,7 @@ public class Swingy {
 	// Persistence.createEntityManagerFactory("za.co.wethinkcode.Swingy");
 	public static void main(String[] args) {
 		// createTable();
-		addHero("", "flank");
+		addHero("sas", "flank");
 		// List<Hero> heroes = getHeroesFromDB();
 		// Hero player = heroes.get(0);
 		// player.setHeroLevel(19);
@@ -103,8 +103,7 @@ public class Swingy {
 		Hero newHero = HeroFactory.newHero(heroName, heroClass);
 		Set<ConstraintViolation<Hero>> constraintViolations = validator.validate(newHero);
 		if (!isEmpty(constraintViolations)) {
-			System.out.printf("%s %s\n", constraintViolations.iterator().next().getConstraintDescriptor(),
-					constraintViolations.iterator().next().getMessage());
+			System.out.printf("%s\n", constraintViolations.iterator().next().getMessage());
 			return;
 		}
 		else
@@ -122,11 +121,6 @@ public class Swingy {
 					System.exit(0);
 			}
 		}
-		// EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
-		// entityManager.getTransaction().begin();
-		// entityManager.persist(newHero);
-		// entityManager.getTransaction().commit();
-		// entityManager.close();
 	}
 
 	// public static void updateHero(Hero player) {
