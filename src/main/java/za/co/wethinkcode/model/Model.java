@@ -43,8 +43,7 @@ public class Model {
 		Set<ConstraintViolation<Hero>> constraintViolations = validator.validate( newHero );
 		if (!isEmpty(constraintViolations))
 		{
-				System.out.printf("%s %s\n", constraintViolations.iterator().next().getConstraintDescriptor(),
-						constraintViolations.iterator().next().getMessage());
+				System.out.printf("%s %s\n", constraintViolations.iterator().next().getMessage());
 				return ;
 		}
 
@@ -118,5 +117,10 @@ public class Model {
 	public void setMap()
 	{
 		createGameMap();
+	}
+
+	public List<Hero> getHeroes()
+	{
+		return (this.heroes = getHeroesFromDB());
 	}
 }

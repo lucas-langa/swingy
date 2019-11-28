@@ -32,7 +32,7 @@ public class FlankHeroBuilder implements HeroBuilder {
 	}
 
 	public void 	buildHitPoints( ) {
-		this.hero.setHitPoints( 100 );
+		this.hero.setHeroHitPoints( 100 );
 	}
 
 	public Hero 	getHero( ) {

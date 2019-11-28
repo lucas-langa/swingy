@@ -7,5 +7,5 @@ public interface HeroStats {
 	public void 		setHeroExperience( int experience );
 	public void 		setHeroAttack( int attack);
 	public void 		setHeroDefense( int defense );
-	public void 		setHitPoints( int hitPoints );
+	public void 		setHeroHitPoints( int hitPoints );
 }

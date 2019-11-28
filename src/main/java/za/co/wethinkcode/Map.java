@@ -1,6 +1,5 @@
 
 package za.co.wethinkcode;
-import javax.swing.JOptionPane;
 //import za.co.wethinkcode.MoveHero;
 
 public class Map {

@@ -32,7 +32,7 @@ public class DamageHeroBuilder implements HeroBuilder {
 	}
 
 	public void 	buildHitPoints( ) {
-		this.hero.setHitPoints( 115 );
+		this.hero.setHeroHitPoints( 115 );
 	}
 
 	public Hero 	getHero( ) {

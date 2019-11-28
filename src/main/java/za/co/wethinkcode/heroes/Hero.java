@@ -4,16 +4,23 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import java.io.Serializable;
 
+@Entity
+@Table(name = "heroes")
 public class Hero implements Serializable, HeroStats {
 
 	private static final long 		serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
-    @Column(name="id")
-    private Integer id;
+    // @Id
+	// public Long getId() { return id; }
+	public void setId(Integer heroID) { this.heroID = heroID;}
+	/*useless*/
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="heroID")
+    private Integer heroID;
 
 	@NotNull(message = "hero name Should not be null")
     @Size(message = "hero name should be at least 3 characters long",min = 3, max = 15)
@@ -28,8 +35,7 @@ public class Hero implements Serializable, HeroStats {
 	private int						heroDefense;
 	private int						heroHitPoints;
 
-	public void setId(Integer id) { this.id = id;}
-	/*useless*/
+
 	public void 		setHeroName( String name ){
 		this.heroName = name;
 	}
@@ -54,13 +60,13 @@ public class Hero implements Serializable, HeroStats {
 		this.heroDefense = defense;
 	}
 
-	public void 		setHitPoints( int hitPoints ) {
+	public void 		setHeroHitPoints( int hitPoints ) {
 		this.heroHitPoints = hitPoints;
 	}
 
-
+	
 	public Integer getId() {
-		return id;
+		return heroID;
 	}
 
 	@Override

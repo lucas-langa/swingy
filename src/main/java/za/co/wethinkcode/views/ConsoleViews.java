@@ -3,25 +3,29 @@ package za.co.wethinkcode.views;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.io.IOException;
-import java.util.ArrayList;
+// import javax.validation.constraints.NotNull;
+// import javax.validation.constraints.Size;
+// import java.io.IOException;
+// import java.util.ArrayList;
 import java.util.InputMismatchException;
 import za.co.wethinkcode.heroes.*;
+// import za.co.wethinkcode.model.Model;
 import za.co.wethinkcode.MotherOfException;
 
 public class ConsoleViews {
-	private String greetings;
-	private String PlayerName;
+	// private String greetings;
+	// private String PlayerName;
 
-	public static void main(String args[]) {
-		List<Hero> heroes = new ArrayList<Hero>();
-		Hero lucas = HeroFactory.newHero("lucas", "flank");
-		heroes.add(lucas);
-		Hero kerane = HeroFactory.newHero("kerane", "damage");
-		heroes.add(kerane);
-		// // peasantStats(lucas);
+	// public static void main(String args[]) {
+		// Model heroModel = new Model();
+		// List<Hero> heroes = new ArrayList<Hero>();
+		// Hero lucas = HeroFactory.newHero("lucas", "flank");
+		// heroes.add(lucas);
+		// Hero kerane = HeroFactory.newHero("kerane", "damage");
+		// heroes.add(kerane);
+		// selectHero(heroes);
+		// peasantStats(lucas);
+		// heroModel.getHeroesFromDB();
 		// listHeroes(heroes);
 		// encounterText();
 		// try {
@@ -29,13 +33,15 @@ public class ConsoleViews {
 		// } catch(MotherOfException a){
 		// System.out.println(a.getMessage());
 		// }
-		// divisionExample();
-		newHeroClass();
+		// // divisionExample();
+		// newHeroClass();
 		// newHeroName();
-	}
+	// }
 
-	public ConsoleViews() {
-		
+	public void listHeroes(List<Hero> heroes){
+		for (Hero hero : heroes){
+			peasantStats(hero);
+		}
 	}
 
 	public  void welcomeText() {
@@ -59,7 +65,7 @@ public class ConsoleViews {
 		}
 	}
 	
-	private void 	clearScreen()
+	private static void 	clearScreen()
 	{
 		System.out.print("\033[H\033[2J");  
 		System.out.flush();  
@@ -75,8 +81,8 @@ public class ConsoleViews {
 	}
 
 	public static void 	newHeroName(){
-		@NotNull
-		@Size(min=3, max=15)
+	
+		
 		String name;
 		Scanner input = new Scanner(System.in);
 		System.out.println("/*********************************************************/\n"+
@@ -128,11 +134,12 @@ public class ConsoleViews {
 		System.out.println("Hero Experience " + Peasant.getHeroExperience());
 	}
 	
-	public static void selectHero(List<Hero> heroes) throws MotherOfException
+	public void selectHero(List<Hero> heroes) throws MotherOfException
 	{
 		int limit = heroes.size();
 		int choice;
 		int loop = 0;
+		Hero chosenOne = null;
 
 		Scanner input = new Scanner(System.in);
 		if (limit > 0) {
@@ -143,26 +150,49 @@ public class ConsoleViews {
 				System.out.print("\nHero number "+ i++ + "\n\n");
 				peasantStats(players);
 			}
-			do {
-				try {
-					choice = input.nextInt();
-					if (choice > limit || choice == limit || choice == 0)
-						throw new MotherOfException("I gave you a chance to choose a hero and you chose one that doesn't exist, restart the program and think carefully about your choices.");
-					loop = 1;
-				} catch (InputMismatchException im) {
-					System.out.println("numbers only, peasant");
-				}
-				catch (NoSuchElementException nose){
-					System.out.println("Something happened, try again");
-					loop = 0;
-				}
-				catch (IllegalStateException ise){
-					System.out.println("OOf");
-					loop = 0;
-				}
-				input.next();
+
+			while (loop == 0){
+                try {
+
+                    try {
+                        choice = input.nextInt()-1;
+                        chosenOne =  heroes.get(choice);
+
+                        loop = 2;
+//						1
+                    } catch(IndexOutOfBoundsException e){
+                        System.out.println("please pick a valid hero from 1 and " + (limit-1));
+//                        input.next();
+
+//						input.nextLine();
+
+                    }
+//					if (choice > limit || choice == limit || choice == 0)
+//						throw new MotherOfException("I gave you a chance to choose a hero and you chose one that doesn't exist, restart the program and think carefully about your choices.");
+                  ;
+                } catch (InputMismatchException im) {
+                    System.out.println("numbers only, peasant");
+					input.next();
+                }
+                catch (NoSuchElementException nose){
+                    System.out.println("Something happened, try again");
+                    loop = 0;
+//					input.nextLine();
+                }
+                catch (IllegalStateException ise){
+                    System.out.println("OOf");
+                    loop = 0;
+//					input.nextLine();
+                } catch(NullPointerException e){
+                    System.out.println("please pick a valid hero from 1 and " + (limit-1));
+//                    input.next();
+                }
+            }
+			if(loop != 2)
+			{
+				String watch =  chosenOne.toString() != null ? chosenOne.toString() : "nothing";
+				System.out.println(watch);
 			}
-			while (loop == 0);
 			input.close();
 		}			
 	}

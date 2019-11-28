@@ -15,27 +15,21 @@ mapped to database tables. Database driver, location, userid and pw
         <!-- Define the class for Hibernate which implements JPA -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- Define the object that should be persisted in the database -->
-        <class>za.co.wethinkcode.Swingy</class>
+        <class>za.co.wethinkcode.heroes.Hero</class>
         <properties>
-<!--            &lt;!&ndash; Driver for DB database &ndash;&gt;-->
-<!--            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />-->
-<!--            &lt;!&ndash; URL for DB &ndash;&gt;-->
-<!--            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/swingy" />-->
-<!--            &lt;!&ndash; Username &ndash;&gt;-->
-<!--            <property name="javax.persistence.jdbc.user" value="llanga" />-->
-<!--            &lt;!&ndash; Password &ndash;&gt;-->
-<!--            <property name="javax.persistence.jdbc.password" value="llanga" />-->
-            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:sqlite3"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="576756"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/swingy"/>
             <property name="hibernate.connection.autocommit" value="false"/>
-            <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="000000"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.connection.CharSet" value="utf8"/>
             <property name="hibernate.connection.characterEncoding" value="utf8"/>
             <property name="hibernate.connection.useUnicode" value="true"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.show_hql" value="false" />
+            <property name="hibernate.format_hql" value="false" />
         </properties>
     </persistence-unit>
 </persistence>
