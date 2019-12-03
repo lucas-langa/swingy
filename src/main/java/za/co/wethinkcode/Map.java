@@ -6,26 +6,26 @@ public class Map {
 	public int[][] map;
 	private int x, y;
 //	JFrame f;
-	public static void main(String[] args) {
+// 	public static void main(String[] args) {
 
-		Map map = new Map(1);
+// 		Map map = new Map(1);
 
-//		String optioN = JOptionPane.showInputDialog(null, "enter something");
-		int i = 0;
-		int pos = map.getMapMid();
-		int x = pos;
-		int y = pos;
-		System.out.println(pos);
-		map.map[pos][pos] = 'h';
-		map.displayMap();
+// //		String optioN = JOptionPane.showInputDialog(null, "enter something");
+// 		int i = 0;
+// 		int pos = map.getMapMid();
+// 		int x = pos;
+// 		int y = pos;
+// 		System.out.println(pos);
+// 		map.map[pos][pos] = 'h';
+// 		map.displayMap();
 
 
-		System.out.println("\n");
-		map.displayMap();
+// 		System.out.println("\n");
+// 		map.displayMap();
 
-		System.out.printf("My hero goes here %d\n",map.getMapMid());
+// 		System.out.printf("My hero goes here %d\n",map.getMapMid());
 		
-	}
+// 	}
 
 //	public    Map(String typeS)
 //	{

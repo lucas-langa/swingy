@@ -1,14 +1,14 @@
 package za.co.wethinkcode.views;
 
+import java.awt.*;
 import javax.swing.*;
+import javax.validation.ConstraintViolation;
 import javax.swing.event.EventListenerList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.validation.ConstraintViolation;
 
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	private JLabel greeting,heroName, heroClass, heroAttack, heroDefense, heroExperience, heroHitPoints, heroLevel, classLabel;
 	private JTextField playerName;
 	private JScrollPane classScrollPane;
-	private String[] classes = { "Damage", "Tank", "Flank" };
+	private final String[] classes = { "Damage", "Tank", "Flank" };
 
 	public String 	getHeroClass() {
 		return(classes[playerClassList.getSelectedIndex()]);
@@ -34,7 +34,6 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	public void newHeroClass() {
 		this.classLabel = new JLabel("Hero Class: ");
 		this.confirmClass = new JButton("ok");
-		// String[] classes = { "Damage", "Tank", "Flank" };
 
 		this.playerClassList = new JList<String>(classes);
 		this.playerClassList.setVisibleRowCount(3);
@@ -151,17 +150,10 @@ public class GUIViews extends JFrame implements DisplayInterface {
 
 	public void encounterText() {
 		// TODO Auto-generated method stub
-
 	}
 
 	public void displayMap(int[][] map, int size) {
 		// TODO Auto-generated method stub
-
-	}
-
-	public void divisionExample() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

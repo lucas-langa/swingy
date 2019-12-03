@@ -10,9 +10,8 @@ public class GameMap {
 
 	public 	void 	 getHeroPos(){
 		for (int i = 0;i < this.y ;i++){
-			for (int j = 0; j < this.x;j++)
-			{
-				if (map[i][j] == 'h'){
+			for (int j = 0; j < this.x;j++) {
+				if (map[i][j] == 'h') {
 					heroX = j;
 					heroY = i;
 					return ;
@@ -21,7 +20,7 @@ public class GameMap {
 		}
 	}
 
-	public    GameMap(final int heroLevel){
+	public    GameMap(final int heroLevel) {
 		this.y = (heroLevel - 1) * 5 + 10 - (heroLevel % 2);
 		this.x = this.y;
 		this.map = new int[this.y][this.x];
@@ -33,7 +32,7 @@ public class GameMap {
 		displayMap();
 	}
 	
-	public boolean checkEdge(){
+	public boolean checkEdge() {
 		if (heroX == 0 || heroY == 0 || heroX == map.length - 1 || heroY == map[heroX].length - 1)
 			return true;
 		return false;

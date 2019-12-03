@@ -9,6 +9,7 @@ import java.util.Set;
 import java.awt.event.ActionListener;
 
 public interface DisplayInterface {
+	public void forceNewHero();
 	public void welcomeText();
 
 	public void newHeroClass();
@@ -25,11 +26,15 @@ public interface DisplayInterface {
 
 	public void selectHero(List<Hero> heroes);
 
-	public void divisionExample();
 
 	public void fightSim();
 
 	public void clearScreen();
 
 	public void communicator(ActionListener ActionListener);
+	public int getAction();
+	public String getPlayerClass();
+	public String getPlayerName();
+	public Hero getChosenOne();
+	public void displayVictoryScreen(String heroName);
 }

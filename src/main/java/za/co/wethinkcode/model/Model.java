@@ -1,6 +1,6 @@
 package za.co.wethinkcode.model;
 
-import za.co.wethinkcode.heroes.Hero;
+import za.co.wethinkcode.heroes.*;
 import za.co.wethinkcode.heroes.HeroFactory;
 import java.util.List;
 import java.util.Set;
@@ -37,19 +37,20 @@ public class Model {
 	}
 
 	public void addHero(String name, String heroClass) {
+		System.out.println(name);
+		System.out.println(heroClass);
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
-		Hero newHero = HeroFactory.newHero(name, heroClass);
-		Set<ConstraintViolation<Hero>> constraintViolations = validator.validate( newHero );
+		this.player  = HeroFactory.newHero(name, heroClass);
+		Set<ConstraintViolation<Hero>> constraintViolations = validator.validate( player );
 		if (!isEmpty(constraintViolations))
 		{
 				System.out.printf("%s %s\n", constraintViolations.iterator().next().getMessage());
 				return ;
 		}
-
 		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
 		entityManager.getTransaction().begin();
-		entityManager.persist(newHero);
+		entityManager.persist(player);
 		entityManager.getTransaction().commit();
 		entityManager.close();
 	}
@@ -61,7 +62,13 @@ public class Model {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 	}
-
+	/**
+	 * @return the player
+	 */
+	public Hero getPlayer() {
+		return player;
+	}
+	
 	public 	void 	 getHeroPos(){
 		for (int i = 0;i < this.y ;i++){
 			for (int j = 0; j < this.x;j++)
