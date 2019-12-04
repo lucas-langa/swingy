@@ -45,7 +45,7 @@ public class Model {
 		Set<ConstraintViolation<Hero>> constraintViolations = validator.validate( player );
 		if (!isEmpty(constraintViolations))
 		{
-				System.out.printf("%s %s\n", constraintViolations.iterator().next().getMessage());
+				System.out.printf("%s\n", constraintViolations.iterator().next().getMessage());
 				return ;
 		}
 		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();

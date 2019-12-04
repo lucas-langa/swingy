@@ -1,6 +1,8 @@
 
 package za.co.wethinkcode;
 
+import java.util.Random;
+
 //import za.co.wethinkcode.MoveHero;
 
 public class GameMap {
@@ -19,7 +21,22 @@ public class GameMap {
 			}
 		}
 	}
-
+	public static void placeVillains(GameMap Map) {
+		int mapSize = Map.y;
+		int nextBaddie;
+		int baddieY;
+		Random bb = new Random();
+		for (int i = 0; i < mapSize; i++) {
+			for (int j = 0; j < mapSize; j++) {
+				nextBaddie = bb.nextInt(mapSize-1);
+				baddieY = bb.nextInt(mapSize-1);
+				// bb.nextInt(mapSize);
+				if (Map.map[baddieY][nextBaddie] != 'h' && Map.map[baddieY][nextBaddie] != 'v') {
+					Map.map[baddieY][nextBaddie] = 'v';
+				}
+			}
+		}
+	}
 	public    GameMap(final int heroLevel) {
 		this.y = (heroLevel - 1) * 5 + 10 - (heroLevel % 2);
 		this.x = this.y;
@@ -28,6 +45,7 @@ public class GameMap {
 		int pos = getMapMid();
 		heroY = pos;
 		heroX = pos;
+		placeVillains(this);
 		this.map[pos][pos] = 'h';
 		displayMap();
 	}

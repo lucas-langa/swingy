@@ -104,7 +104,7 @@ public class ConsoleViews implements DisplayInterface {
 	}
 
 	public void fightSim() {
-		return;
+		System.out.println("You have encountered a villain, what do ?");
 	}
 
 	public void newHeroClass() {
@@ -157,11 +157,11 @@ public class ConsoleViews implements DisplayInterface {
 		while (true) {
 			try {
 				name = input.next();
-				if (name.length() >= 3 && name.length() <= 15) {
-					PlayerName = name;
-					break;
-				} else
-					System.out.println("must be 3 to 15 characters long");
+				PlayerName = name;
+				break;
+				// if (name.length() >= 3 && name.length() <= 15) {
+				// } else
+				// 	System.out.println("must be 3 to 15 characters long");
 			} catch (InputMismatchException im) {
 				System.out.println("characters only, peasant");
 				input.next();

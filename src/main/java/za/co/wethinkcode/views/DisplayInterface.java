@@ -32,9 +32,14 @@ public interface DisplayInterface {
 	public void clearScreen();
 
 	public void communicator(ActionListener ActionListener);
+
 	public int getAction();
+
 	public String getPlayerClass();
+
 	public String getPlayerName();
+
 	public Hero getChosenOne();
+	
 	public void displayVictoryScreen(String heroName);
 }
