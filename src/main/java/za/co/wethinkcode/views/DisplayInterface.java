@@ -29,6 +29,8 @@ public interface DisplayInterface {
 
 	public void fightSim();
 
+	public void gameOver();
+
 	public void clearScreen();
 
 	public void communicator(ActionListener ActionListener);

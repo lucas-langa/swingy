@@ -4,6 +4,7 @@ import za.co.wethinkcode.views.ConsoleViews;
 import za.co.wethinkcode.views.DisplayInterface;
 import za.co.wethinkcode.GameMap;
 import za.co.wethinkcode.MoveHero;
+import za.co.wethinkcode.heroes.AntiHeroFactory;
 import za.co.wethinkcode.heroes.Hero;
 import za.co.wethinkcode.model.Model;
 
@@ -33,7 +34,7 @@ public class Controller {
 	private gameState currentState;
 
 	public static void main(String[] args) {
-		
+
 		Model model = new Model();
 		DisplayInterface Views = new ConsoleViews();
 		Controller gamecontroller = new Controller(model, Views, "console");
@@ -56,9 +57,7 @@ public class Controller {
 	class ViewListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
 			e.getActionCommand().equals("UP");
-
 		}
 	}
 
@@ -66,8 +65,29 @@ public class Controller {
 		this.action = action;
 	}
 
-	public void fight(Hero player, Hero Villain){
-		
+	public int fight(Hero player, Hero Villain) {
+		int outCome = -1;
+		int heroHealth = player.getHeroHitPoints();
+		int villainHealth = Villain.getHeroHitPoints();
+		int heroAttack = player.getHeroAttack();
+		int villainAttack = Villain.getHeroAttack();
+		System.out.println(villainAttack);
+		// Random chance = new Random();
+		// while (heroHealth >= 0 || villainHealth >= 0) {
+		// 	if (chance.nextInt(5) % 2 == 0)
+		// 		villainHealth -= heroAttack - Villain.getHeroDefense();
+		// 	else
+		// 		heroHealth -= villainAttack - player.getHeroDefense();
+		// }
+		// if (heroHealth <= 0) {
+		// 	System.out.println("you lost, you took this much damage: "+heroHealth
+		// 	);
+		// 	outCome = 0;
+		// } else if (villainHealth <= 0) {
+		// 	System.out.println("you beat him/her/it");
+		// 	outCome = 1;
+		// }
+		return outCome;
 	}
 
 	public void runGame() {
@@ -91,14 +111,32 @@ public class Controller {
 			while (currentState == gameState.PLAY) {
 				if (sc.hasNext()) {
 					move = sc.nextLine();
-					if (move.equals("n"))
+					if (move.equals("n")) {
+						if (mGameMap.metVillain('n')) 
+							Views.encounterText();
 						MoveHero.moveUp(mGameMap.heroY, mGameMap.heroX, mGameMap);
-					else if (move.equals("s"))
+					} else if (move.equals("s")) {
+						if (mGameMap.metVillain('s')) 
+							Views.encounterText();
 						MoveHero.moveDown(mGameMap.heroY, mGameMap.heroX, mGameMap);
-					else if (move.equals("w"))
+					} else if (move.equals("w")) {
+						if (mGameMap.metVillain('w')) 
+							Views.encounterText();
 						MoveHero.left(mGameMap.heroY, mGameMap.heroX, mGameMap);
-					else if (move.equals("e"))
+					} else if (move.equals("e")) {
+						if (mGameMap.metVillain('e')) 
+							Views.encounterText();
+							if (Views.getAction() == 1)
+							{
+								if (fight(player, AntiHeroFactory.newHero("AntiHero")) == 0)
+								{
+									currentState = gameState.GAME_OVER;
+
+									break;
+								}
+							}
 						MoveHero.right(mGameMap.heroY, mGameMap.heroX, mGameMap);
+					}
 				}
 				mGameMap.displayMap();
 				if (mGameMap.checkEdge()) {
@@ -113,6 +151,8 @@ public class Controller {
 			}
 			System.out.println("\n");
 			sc.close();
+			case GAME_OVER:
+				Views.gameOver();
 		default:
 		}
 	}

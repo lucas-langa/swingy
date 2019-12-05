@@ -24,11 +24,11 @@ public class AntiHeroBuilder implements HeroBuilder {
 	}
 
 	public void 	buildHeroAttack( ) {
-		this.hero.setHeroAttack( 30 );
+		this.hero.setHeroAttack( 3 );
 	}
 
 	public void 	buildHeroDefense( ) {
-		this.hero.setHeroDefense( 70 );
+		this.hero.setHeroDefense( 7 );
 	}
 
 	public void 	buildHitPoints( ) {

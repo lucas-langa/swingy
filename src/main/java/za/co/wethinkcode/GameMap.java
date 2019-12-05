@@ -1,26 +1,24 @@
-
 package za.co.wethinkcode;
 
 import java.util.Random;
-
-//import za.co.wethinkcode.MoveHero;
 
 public class GameMap {
 	public int[][] map;
 	public int x, y;
 	public int heroY, heroX;
 
-	public 	void 	 getHeroPos(){
-		for (int i = 0;i < this.y ;i++){
-			for (int j = 0; j < this.x;j++) {
+	public void getHeroPos() {
+		for (int i = 0; i < this.y; i++) {
+			for (int j = 0; j < this.x; j++) {
 				if (map[i][j] == 'h') {
 					heroX = j;
 					heroY = i;
-					return ;
+					return;
 				}
 			}
 		}
 	}
+
 	public static void placeVillains(GameMap Map) {
 		int mapSize = Map.y;
 		int nextBaddie;
@@ -28,16 +26,17 @@ public class GameMap {
 		Random bb = new Random();
 		for (int i = 0; i < mapSize; i++) {
 			for (int j = 0; j < mapSize; j++) {
-				nextBaddie = bb.nextInt(mapSize-1);
-				baddieY = bb.nextInt(mapSize-1);
-				// bb.nextInt(mapSize);
+				nextBaddie = bb.nextInt(mapSize - 1);
+				baddieY = bb.nextInt(mapSize - 1);
 				if (Map.map[baddieY][nextBaddie] != 'h' && Map.map[baddieY][nextBaddie] != 'v') {
 					Map.map[baddieY][nextBaddie] = 'v';
 				}
 			}
 		}
 	}
-	public    GameMap(final int heroLevel) {
+
+	// String []choices = {"AntiHero", "DemonHero", "WarlockHero"};
+	public GameMap(final int heroLevel) {
 		this.y = (heroLevel - 1) * 5 + 10 - (heroLevel % 2);
 		this.x = this.y;
 		this.map = new int[this.y][this.x];
@@ -49,25 +48,50 @@ public class GameMap {
 		this.map[pos][pos] = 'h';
 		displayMap();
 	}
-	
+
+	public boolean metVillain(char d) {
+		boolean did = false;
+		switch (d) {
+		case 'e':
+			if (this.map[heroY][heroX + 1] == 'v')
+				did = true;
+			break;
+		case 'w':
+			if (this.map[heroY][heroX - 1] == 'v')
+				did = true;
+			break;
+		case 's':
+			if (this.map[heroY + 1][heroX] == 'v')
+				did = true;
+			break;
+		case 'n':
+			if (this.map[heroY - 1][heroX] == 'v')
+				did = true;
+			break;
+		default:
+			break;
+		}
+		return did;
+	}
+
 	public boolean checkEdge() {
 		if (heroX == 0 || heroY == 0 || heroX == map.length - 1 || heroY == map[heroX].length - 1)
 			return true;
 		return false;
 	}
 
-	private void    populateMap( final int y, final int x ) {
-		for (int i = 0; i < y;i++){
-			for (int j = 0; j < x; j++){
+	private void populateMap(final int y, final int x) {
+		for (int i = 0; i < y; i++) {
+			for (int j = 0; j < x; j++) {
 				map[i][j] = '*';
 			}
 		}
 	}
 
-	public void     displayMap(){
-		for (int i = 0; i < y;i++){
-			for (int j = 0; j < x; j++){
-				System.out.printf("%c",map[i][j]);
+	public void displayMap() {
+		for (int i = 0; i < y; i++) {
+			for (int j = 0; j < x; j++) {
+				System.out.printf("%c", map[i][j]);
 			}
 			System.out.print("\n");
 		}
@@ -75,7 +99,7 @@ public class GameMap {
 
 	public int getMapMid() {
 		if (this.x % 2 == 0)
-			return  (this.x / 2);
+			return (this.x / 2);
 		return (this.x / 2 + 1);
 	}
 }

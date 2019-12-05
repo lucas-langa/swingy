@@ -169,7 +169,7 @@ public class ConsoleViews implements DisplayInterface {
 				System.out.println("OOf: " + ise.getMessage());
 				input.next();
 			} catch (NullPointerException e) {
-				System.out.println("please pick a valid hero from 1 and ");
+				System.out.println("please type valid stuff");
 				input.next();
 			}
 		}
@@ -178,9 +178,9 @@ public class ConsoleViews implements DisplayInterface {
 
 	public void encounterText() {
 		System.out.println("/*********************************************************/\n"
-				+ "/*			You have encountered an enemy.               */\n"
-				+ "/*			What do you want to do?						 */\n"
-				+ "/*			1.Fight			2.Flee						 */\n"
+				+ "/*			You have encountered an enemy.   */\n"
+				+ "/*			What do you want to do?	         */\n"
+				+ "/*			1.Fight			2.Flee	 */\n"
 				+ "/*********************************************************/\n");
 		while (true) {
 			try {
@@ -196,12 +196,16 @@ public class ConsoleViews implements DisplayInterface {
 				System.out.println("OOf: " + ise.getMessage());
 				input.next();
 			} catch (NullPointerException e) {
-				System.out.println("please pick a valid hero from 1 and ");
+				System.out.println("please pick a valid option from 1 and 2");
 				input.next();
 			}
 		}
 	}
 
+	public void gameOver(){
+		System.out.println("It's over for you");
+	}
+	
 	public void displayMap(int[][] map, int size) {
 		int y = size, x = size;
 		for (int i = 0; i < y; i++) {

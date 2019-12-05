@@ -22,6 +22,10 @@ public class Model {
 	private int heroY, heroX;
 	private Hero player;
 
+	public	Hero getVillain(String antiType){
+		return (AntiHeroFactory.newHero(antiType));
+	}
+
 	public  List<Hero>   getHeroesFromDB(){
 		EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 		try {
