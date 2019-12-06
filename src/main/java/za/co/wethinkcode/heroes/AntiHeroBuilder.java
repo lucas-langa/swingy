@@ -24,7 +24,7 @@ public class AntiHeroBuilder implements HeroBuilder {
 	}
 
 	public void 	buildHeroAttack( ) {
-		this.hero.setHeroAttack( 3 );
+		this.hero.setHeroAttack( 10 );
 	}
 
 	public void 	buildHeroDefense( ) {

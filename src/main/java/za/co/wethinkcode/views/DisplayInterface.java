@@ -11,7 +11,8 @@ import java.awt.event.ActionListener;
 public interface DisplayInterface {
 	public void forceNewHero();
 	public void welcomeText();
-
+	public void displayPlayerVictory();
+	public void displayBattleLoss(int health);
 	public void newHeroClass();
 
 	public void newHeroName();

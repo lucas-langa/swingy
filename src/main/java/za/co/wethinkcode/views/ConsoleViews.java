@@ -202,6 +202,10 @@ public class ConsoleViews implements DisplayInterface {
 		}
 	}
 
+	public void displayPlayerVictory(){
+		System.out.println("Congrats you defeated that villain ^^");
+	}
+
 	public void gameOver(){
 		System.out.println("It's over for you");
 	}
@@ -214,6 +218,10 @@ public class ConsoleViews implements DisplayInterface {
 			}
 			System.out.print("\n");
 		}
+	}
+
+	public void displayBattleLoss(int health){
+		System.out.println("you lost, you were brutalized:  and left with"+ health+" health");
 	}
 
 	public void peasantStats(Hero Peasant) {
