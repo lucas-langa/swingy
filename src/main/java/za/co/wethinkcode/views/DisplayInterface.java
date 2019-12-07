@@ -34,6 +34,8 @@ public interface DisplayInterface {
 
 	public void clearScreen();
 
+	public void displayEscapeFailure();
+	public void displayEscapeSuccess();
 	public void communicator(ActionListener ActionListener);
 
 	public int getAction();

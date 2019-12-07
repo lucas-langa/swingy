@@ -158,10 +158,7 @@ public class ConsoleViews implements DisplayInterface {
 			try {
 				name = input.next();
 				PlayerName = name;
-				break;
-				// if (name.length() >= 3 && name.length() <= 15) {
-				// } else
-				// 	System.out.println("must be 3 to 15 characters long");
+				break;	
 			} catch (InputMismatchException im) {
 				System.out.println("characters only, peasant");
 				input.next();
@@ -251,15 +248,12 @@ public class ConsoleViews implements DisplayInterface {
 
 			while (loop == 0) {
 				try {
-
 					try {
 						choice = input.nextInt() - 1;
 						chosenOne = heroes.get(choice);
 						loop = 2;
 					} catch (IndexOutOfBoundsException e) {
 						System.out.println("please pick a valid hero from 1 and " + (limit - 1));
-						// input.next();
-						// input.nextLine();
 					}
 				} catch (InputMismatchException im) {
 					System.out.println("numbers only, peasant");
@@ -267,22 +261,13 @@ public class ConsoleViews implements DisplayInterface {
 				} catch (NoSuchElementException nose) {
 					System.out.println("Something happened, try again");
 					loop = 0;
-
-					// input.nextLine();
 				} catch (IllegalStateException ise) {
 					System.out.println("OOf");
 					loop = 0;
-					// input.nextLine();
 				} catch (NullPointerException e) {
 					System.out.println("please pick a valid hero from 1 and " + (limit - 1));
-					// input.next();
 				}
 			}
-			// if (loop != 2) {
-			String watch = chosenOne.toString() != null ? chosenOne.toString() : "nothing";
-			System.out.println(watch);
-			// }
-			// input.close();
 		} else {
 			System.out.println("Looks like there are no heroes available, create some");
 		}
@@ -290,6 +275,14 @@ public class ConsoleViews implements DisplayInterface {
 
 	public void displayVictoryScreen(String heroName) {
 		System.out.println("Congratulations " + heroName + ", you have won");
+	}
+
+	public void displayEscapeFailure(){
+		System.out.println("Sorry you were unable to escape and forced to fight");
+	}
+
+	public void displayEscapeSuccess(){
+		System.out.println("You managed to escape");
 	}
 
 }

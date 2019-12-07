@@ -26,8 +26,8 @@ public class GameMap {
 		Random bb = new Random();
 		for (int i = 0; i < mapSize; i++) {
 			for (int j = 0; j < mapSize; j++) {
-				nextBaddie = bb.nextInt(mapSize - 1);
-				baddieY = bb.nextInt(mapSize - 1);
+				nextBaddie = bb.nextInt(mapSize - 2);
+				baddieY = bb.nextInt(mapSize - 2);
 				if (Map.map[baddieY][nextBaddie] != 'h' && Map.map[baddieY][nextBaddie] != 'v') {
 					Map.map[baddieY][nextBaddie] = 'v';
 				}
