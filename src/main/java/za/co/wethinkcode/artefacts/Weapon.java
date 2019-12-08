@@ -1,4 +1,4 @@
-package za.co.wethinkcode.artefacs;
+package za.co.wethinkcode.artefacts;
 
 public enum Weapon {
 	SWORD("Escalibur", 30),

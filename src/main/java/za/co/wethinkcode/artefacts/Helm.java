@@ -1,4 +1,4 @@
-package za.co.wethinkcode.artefacs;
+package za.co.wethinkcode.artefacts;
 
 public enum Helm {
 	NANOBOOST("Get in There", 1000),

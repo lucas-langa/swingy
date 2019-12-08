@@ -9,8 +9,6 @@ import java.awt.event.ActionListener;
 import javax.validation.ConstraintViolation;
 import java.util.InputMismatchException;
 import za.co.wethinkcode.heroes.*;
-import za.co.wethinkcode.model.Model;
-import za.co.wethinkcode.MotherOfException;
 
 public class ConsoleViews implements DisplayInterface {
 	private String PlayerName;
@@ -59,7 +57,7 @@ public class ConsoleViews implements DisplayInterface {
 		}
 	}
 
-	private void clearScreen() {
+	public void clearScreen() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
 	}

@@ -33,14 +33,6 @@ public class Controller {
 
 	private gameState currentState;
 
-	public static void main(String[] args) {
-
-		Model model = new Model();
-		DisplayInterface Views = new ConsoleViews();
-		Controller gamecontroller = new Controller(model, Views, "console");
-
-	}
-
 	public Controller(Model theModel, DisplayInterface theconsoleViews, String gameMode) {
 		this.model = theModel;
 		if (gameMode.equalsIgnoreCase("console")) {
@@ -86,8 +78,8 @@ public class Controller {
 			Views.displayBattleLoss(heroHealth);
 			outCome = 0;
 		} else if (villainHealth <= 0) {
-			player.setHeroExperience(player.getHeroExperience() + 30);
 			outCome = 1;
+			player.setHeroExperience(player.getHeroExperience() + 20);
 		}
 		return outCome;
 	}
@@ -146,6 +138,7 @@ public class Controller {
 								}
 							}
 						}
+
 						MoveHero.moveUp(mGameMap.heroY, mGameMap.heroX, mGameMap);
 					} else if (move.equals("s")) {
 						if (mGameMap.metVillain('s')) {
@@ -226,24 +219,32 @@ public class Controller {
 						}
 						MoveHero.right(mGameMap.heroY, mGameMap.heroX, mGameMap);
 					}
-					mGameMap.displayMap();
-					if (mGameMap.checkEdge()) {
-						player.setHeroLevel(player.getHeroLevel() + 1);
-						this.mGameMap = new GameMap(player.getHeroLevel());
-						currentState = gameState.PLAY;
-						if (player.getHeroLevel() == 5) {
-							Views.displayVictoryScreen(this.player.getHeroName());
-							currentState = gameState.GAME_OVER;
-						}
+				}
+				mGameMap.displayMap();
+				if (mGameMap.checkEdge()) {
+					player.setHeroLevel(player.getHeroLevel() + 1);
+					this.mGameMap = new GameMap(player.getHeroLevel());
+					currentState = gameState.PLAY;
+					if (player.getHeroLevel() == 10) {
+						Views.displayVictoryScreen(this.player.getHeroName());
+						currentState = gameState.GAME_OVER;
+						Views.peasantStats(player);
 					}
 				}
-				System.out.println("\n");
 			}
+			System.out.println("\n");
 			sc.close();
 		case GAME_OVER:
-			model.updateHero(player);
 			Views.gameOver();
 		default:
 		}
+	}
+
+	public static void main(String[] args) {
+
+		Model model = new Model();
+		DisplayInterface Views = new ConsoleViews();
+		Controller gamecontroller = new Controller(model, Views, "console");
+
 	}
 }

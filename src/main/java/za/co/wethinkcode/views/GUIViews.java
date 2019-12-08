@@ -3,15 +3,9 @@ package za.co.wethinkcode.views;
 import java.awt.*;
 import javax.swing.*;
 import javax.validation.ConstraintViolation;
-import javax.swing.event.EventListenerList;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +13,10 @@ import za.co.wethinkcode.model.Model;
 import za.co.wethinkcode.heroes.Hero;
 
 public class GUIViews extends JFrame implements DisplayInterface {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel, mainFrame;
 	private JButton confirmClass, heroSelectionLabel, heroCreationLabel;
 	private JList<String> heroList, playerClassList;
@@ -154,6 +152,78 @@ public class GUIViews extends JFrame implements DisplayInterface {
 
 	public void displayMap(int[][] map, int size) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void forceNewHero() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void displayPlayerVictory() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void displayBattleLoss(int health) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void newHeroName() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void gameOver() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void displayEscapeFailure() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void displayEscapeSuccess() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public int getAction() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getPlayerClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPlayerName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Hero getChosenOne() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void displayVictoryScreen(String heroName) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
