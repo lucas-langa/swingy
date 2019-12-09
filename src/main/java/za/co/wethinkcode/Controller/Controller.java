@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-
 import za.co.wethinkcode.GameMap;
 import za.co.wethinkcode.MoveHero;
 import za.co.wethinkcode.heroes.AntiHeroFactory;
@@ -23,24 +22,13 @@ public class Controller {
 	private GameMap mGameMap;
 	private int action;
 	private Hero player;
-	
+
 	public enum gameState {
 		NEXT, START, SELECTION, CREATION, ERRORS, PLAY, RUN_FIGHT, FORCED_FIGHT, GAME_OVER, QUIT, LAST_LEVEL
 	};
 
-	private enum creationStage {
-		HERO_TYPE, NAME_PROMPT, CREATION_TYPE, STATS
-	};
-
 	private gameState currentState;
 
-	public class GUIButtons implements  ActionListener{
-		public void actionPerformed(ActionEvent event){
-
-		}
-	}
-
-	
 	public void getInput(int action) {
 		this.action = action;
 	}
@@ -234,14 +222,50 @@ public class Controller {
 		if (gameMode.equalsIgnoreCase("console")) {
 			Views = new ConsoleViews();
 			gameMode = "console";
+			runGame();
 		} else if (gameMode.equalsIgnoreCase("gui")) {
 			Views = new GUIViews();
+			Views.welcomeText();
+			Views.communicator(new GUIButtons());
 		} else {
 			return;
 		}
 		currentState = gameState.START;
 		model = theModel;
-		runGame();	
+
+	}
+
+	public class GUIButtons implements ActionListener {
+		private String pName;
+		private String pClass;
+
+		public void actionPerformed(ActionEvent event) {
+			if (event.getActionCommand().equals("2.Select an existing Hero")) {
+				Views.clearScreen();
+				Views.selectHero(model.getHeroesFromDB());
+			}
+			if (event.getActionCommand().equals("confirmDbHero")) {
+				System.out.println(Views.getChosenOne());
+			}
+			if (event.getActionCommand().equals("1.Create a new Hero")) {
+				Views.newGameView();
+			}
+			if (event.getActionCommand().equals("confirmPlayerName")) {
+				pName = Views.getPlayerName();
+				System.out.println(pName);
+			}
+			if (event.getActionCommand().equals("ConfirmClass")) {
+				try {
+					System.out.println(pClass = Views.getPlayerClass());
+				} catch (IndexOutOfBoundsException e) {
+					System.out.println("Please select a class from the list");
+				}
+			}
+			if (event.getActionCommand().equals("up"))
+			if (event.getActionCommand().equals("down"))
+			if (event.getActionCommand().equals("left"))
+			if (event.getActionCommand().equals("right"))
+		}
 	}
 
 	public static void main(String[] args) {
