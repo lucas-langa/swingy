@@ -2,12 +2,15 @@ package za.co.wethinkcode.views;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 import java.awt.event.ActionListener;
 
 import javax.validation.ConstraintViolation;
 import java.util.InputMismatchException;
+
+import za.co.wethinkcode.GameMap;
 import za.co.wethinkcode.heroes.*;
 
 public class ConsoleViews implements DisplayInterface {
@@ -23,6 +26,7 @@ public class ConsoleViews implements DisplayInterface {
 	public Hero getChosenOne() {
 		return chosenOne;
 	}
+	
 	public void listHeroes(List<Hero> heroes) {
 		for (Hero hero : heroes) {
 			peasantStats(hero);
@@ -170,6 +174,14 @@ public class ConsoleViews implements DisplayInterface {
 		}
 		return;
 	}
+	
+	public void populateMap(int y, int x, GameMap map) {
+		for (int i = 0; i < y; i++) {
+			for (int j = 0; j < x; j++) {
+				map.map[i][j] = '*';
+			}
+		}
+	}
 
 	public void encounterText() {
 		System.out.println("/*********************************************************/\n"
@@ -282,5 +294,4 @@ public class ConsoleViews implements DisplayInterface {
 	public void displayEscapeSuccess(){
 		System.out.println("You managed to escape");
 	}
-
 }

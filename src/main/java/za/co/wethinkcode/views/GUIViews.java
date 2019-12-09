@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import za.co.wethinkcode.model.Model;
+import za.co.wethinkcode.GameMap;
 import za.co.wethinkcode.heroes.Hero;
 
 public class GUIViews extends JFrame implements DisplayInterface {
@@ -17,17 +18,23 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel mainPanel, mainFrame;
-	private JButton confirmClass, heroSelectionLabel, heroCreationLabel;
+	private JPanel mainPanel;
+	private JButton confirmClass;
 	private JList<String> heroList, playerClassList;
-	private JLabel greeting,heroName, heroClass, heroAttack, heroDefense, heroExperience, heroHitPoints, heroLevel, classLabel;
+	private JButton heroSelectionLabel = new JButton("2.Select an existing Hero");
+	private JButton heroCreationLabel = new JButton("1.Create a new Hero");
+	private JLabel greeting = new JLabel("Welcome to swingy");
+	private JLabel heroName, heroClass, heroAttack, heroDefense, heroExperience, heroHitPoints, heroLevel, classLabel;
 	private JTextField playerName;
 	private JScrollPane classScrollPane;
 	private final String[] classes = { "Damage", "Tank", "Flank" };
+	private JTextArea gameMap;
 
 	public String 	getHeroClass() {
 		return(classes[playerClassList.getSelectedIndex()]);
 	}
+
+
 
 	public void newHeroClass() {
 		this.classLabel = new JLabel("Hero Class: ");
@@ -39,28 +46,34 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		this.playerClassList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);	
 	}
 
-	public void communicator(ActionListener ActionListener) {
-		heroCreationLabel.addActionListener(ActionListener);
-		heroSelectionLabel.addActionListener(ActionListener);
+	public void communicator(ActionListener GUIButtons) {
+		confirmClass.addActionListener(GUIButtons);
+		heroCreationLabel.addActionListener(GUIButtons);
+		heroSelectionLabel.addActionListener(GUIButtons);	
 	}
 
-	public static void main(String[] args) {
-		Model heroModel = new Model();
-		GUIViews gui = new GUIViews();
-		gui.welcomeText();
-		// gui.newHeroClass();
-		// List<Hero> heroes = heroModel.getHeroesFromDB();
-		// gui.selectHero(heroes);
-		// gui.peasantStats(heroes.get(0));
-		// gui.newHeroClass();
+	// public static void main(String[] args) {
+	// 	Model heroModel = new Model();
+	// 	GUIViews gui = new GUIViews();
+	// 	gui.setVisible(true);
+	// 	// gui.welcomeText();
+
+	// 	gui.populateMap(70, 70);
+	// 	// gui.newHeroClass();
+	// 	// List<Hero> heroes = heroModel.getHeroesFromDB();
+	// 	// gui.selectHero(heroes);
+	// 	// gui.peasantStats(heroes.get(0));
+	// 	// gui.newHeroClass();
+	// }
+
+	public void newHeroName() {
+		playerName.setBounds(512,100,100,100);
+		mainPanel.add(playerName);
 	}
 
-	public void newHeroName(String name) {
-		playerName.setText(name);
-	}
-
-	public void getHeroName(){
-		playerName.getText();
+	@Override
+	public String getPlayerName() {
+		return 	playerName.getText();
 	}
 
 	public void fightSim() {
@@ -84,45 +97,39 @@ public class GUIViews extends JFrame implements DisplayInterface {
 				this.heroLevel = new JLabel("<html><p>Hero Level " + peasant.getHeroLevel() + "</p></html>",
 						SwingConstants.LEFT) };
 		for (JLabel jLabel : stats) {
-			mainFrame.add(jLabel);
+			mainPanel.add(jLabel);
 		}
 	}
 
 	public void clearScreen() {
-		mainFrame.revalidate();
-		mainFrame.repaint();
+		mainPanel.revalidate();
+		mainPanel.repaint();
 	}
 
-	GUIViews() {
+	public GUIViews() {
 		super("Swingy");
-		this.mainFrame = new JPanel();
-		mainFrame.setLayout(new FlowLayout());
-		super.add(mainFrame);
-		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		super.pack();
-		super.setSize(1024, 768);
-		super.setLocationRelativeTo(null);
-		super.setVisible(true);
-
+		mainPanel = new JPanel();
+		this.setLayout(new FlowLayout());
+		this.setSize(1024, 768);
+		this.add(mainPanel);
+		// mainPanel.setBounds(0,0,1024,768);
+		mainPanel.setVisible(true);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
 	}
 
 	public void welcomeText() {
-		greeting = new JLabel("Welcome to swingy");
-		heroCreationLabel = new JButton("1.Create a new Hero");
-		heroCreationLabel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				newHeroName();
-				clearScreen();
-				newHeroClass();
-			}
-		});
 
-		heroSelectionLabel = new JButton("2.Select an existing Hero");
+		heroSelectionLabel.setBounds(100, 100, 100, 100);
+		heroCreationLabel.setBounds(100, 100, 100, 100);
+		greeting.setBounds(100, 100, 100, 100);
+		mainPanel.add(greeting);
+		mainPanel.add(heroCreationLabel);
 
-		mainFrame.add(greeting);
-		mainFrame.add(heroCreationLabel);
-		mainFrame.add(heroSelectionLabel);
+		mainPanel.add(heroSelectionLabel);
 	}
+
+	
 
 	public void selectHero(List<Hero> heroes) {
 		String[] chars = new String[heroes.size()];
@@ -139,7 +146,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		this.heroList.setBounds(300, 200, 50, 50);
 		this.heroList.setVisible(true);
 
-		mainFrame.add(new JScrollPane(this.heroList));
+		mainPanel.add(new JScrollPane(this.heroList));
 	}
 
 	public void displayErrors(Set<ConstraintViolation<Hero>> thingsGoneWrong) {
@@ -150,14 +157,34 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		// TODO Auto-generated method stub
 	}
 
+
+	public void populateMap(int y, int x) {
+		gameMap = new JTextArea();
+		gameMap.setText("\n");
+		for (int i = 0; i < y; i++) {
+			gameMap.append("   ");
+			for (int j = 0; j < x; j++) {
+				gameMap.append("*");
+			}
+			gameMap.append("\n\r");
+		}
+		mainPanel.add(gameMap);
+	}
+
 	public void displayMap(int[][] map, int size) {
-		// TODO Auto-generated method stub
+		int y = size, x = size;
+		for (int i = 0; i < y; i++) {
+			for (int j = 0; j < x; j++) {
+				System.out.printf("%c", map[i][j]);
+			}
+			System.out.print("\n");
+		}
 	}
 
 	@Override
 	public void forceNewHero() {
-		// TODO Auto-generated method stub
-
+		newHeroName();
+		newHeroClass();
 	}
 
 	@Override
@@ -168,12 +195,6 @@ public class GUIViews extends JFrame implements DisplayInterface {
 
 	@Override
 	public void displayBattleLoss(int health) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void newHeroName() {
 		// TODO Auto-generated method stub
 
 	}
@@ -208,11 +229,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		return null;
 	}
 
-	@Override
-	public String getPlayerName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public Hero getChosenOne() {

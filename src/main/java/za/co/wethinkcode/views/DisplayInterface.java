@@ -1,7 +1,6 @@
 package za.co.wethinkcode.views;
 
 import javax.validation.ConstraintViolation;
-
 import za.co.wethinkcode.heroes.Hero;
 
 import java.util.List;
@@ -47,4 +46,6 @@ public interface DisplayInterface {
 	public Hero getChosenOne();
 	
 	public void displayVictoryScreen(String heroName);
+
+	// public void populateMap(int y, int x, GameMap map);
 }
