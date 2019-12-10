@@ -5,6 +5,8 @@ import javax.validation.ConstraintViolation;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Set;
+
+import za.co.wethinkcode.GameMap;
 import za.co.wethinkcode.heroes.Hero;
 
 public class GUIViews extends JFrame implements DisplayInterface {
@@ -24,10 +26,25 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	private final String[] classes = { "Damage", "Tank", "Flank" };
 	private JTextArea gameMap;
 	private JButton confirmDbHero = new JButton("confirmDbHero");
-	private Hero chosenOne;
+	private Hero chosenOne = null;
 	private List<Hero> heroes;
 	private JLabel[] stats = new JLabel[7];
 	private JButton ShowHeroStats = new JButton("ShowHeroStats");
+	private JTextArea guiMap = new JTextArea();
+	private JButton gimmeMap = new JButton("gimmeMap");
+	private JButton up = new JButton("n");
+	private JButton down = new JButton("s");
+	private JButton left = new JButton("w");
+	private JButton right = new JButton("e");
+	private JTextArea errors = new JTextArea();
+	private JButton saveNewHero = new JButton("saveNewHero");
+
+	public void displayErrors(Set<ConstraintViolation<Hero>> thingsGoneWrong){
+		for (ConstraintViolation<Hero> constraintViolation : thingsGoneWrong) {
+			errors.append(constraintViolation.getMessage());
+		}
+		mainPanel.add(errors);
+	}
 
 	public String getPlayerClass() {
 		return (classes[playerClassList.getSelectedIndex()]);
@@ -68,6 +85,11 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		mainPanel.add(classLabel);
 		mainPanel.add(confirmClass);
 		mainPanel.add(playerClassList);
+		mainPanel.add(saveNewHero);
+	}
+
+	public void displayError(String error){
+		JOptionPane.showMessageDialog(mainPanel, error, "not like this", JOptionPane.ERROR_MESSAGE);
 	}
 
 	public void communicator(ActionListener GUIButtons) {
@@ -77,6 +99,8 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		heroSelectionLabel.addActionListener(GUIButtons);
 		confirmDbHero.addActionListener(GUIButtons);
 		ShowHeroStats.addActionListener(GUIButtons);
+		gimmeMap.addActionListener(GUIButtons);
+		saveNewHero.addActionListener(GUIButtons);
 	}
 
 	public void newGameView() {
@@ -96,6 +120,17 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	@Override
 	public String getPlayerName() {
 		return playerName.getText();
+	}
+
+	public void makeMap(GameMap map){
+		guiMap.setFont(guiMap.getFont().deriveFont(20f));
+		for (int i = 0; i < map.heroX ; i++){
+			for (int j = 0; j < map.heroX; j++) {
+				guiMap.append(Character.toString(map.map[i][j]));
+			}
+			guiMap.append("\n");
+		}
+		mainPanel.add(guiMap);
 	}
 
 	public void fightSim() {
@@ -130,6 +165,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 
 	public void clearScreen() {
 		mainPanel.revalidate();
+		mainPanel.removeAll();
 		this.revalidate();
 		this.repaint();
 		mainPanel.repaint();
@@ -138,7 +174,6 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	public GUIViews() {
 		super("Swingy");
 		mainPanel = new JPanel();
-		// this.setLayout());
 		this.setSize(1024, 768);
 		this.add(mainPanel);
 		this.setLocationRelativeTo(null);
@@ -156,6 +191,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		mainPanel.add(heroCreationLabel);
 
 		mainPanel.add(heroSelectionLabel);
+		mainPanel.add(gimmeMap);
 	}
 
 	public void populateMap(int y, int x) {
@@ -223,20 +259,10 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		return 0;
 	}
 
-	// @Override
-	// public String getPlayerClass() {
-	// // TODO Auto-generated method stub
-	// return null;
-	// }
-
 	@Override
 	public void displayVictoryScreen(String heroName) {
 		// TODO Auto-generated method stub
 
-	}
-
-	public void displayErrors(Set<ConstraintViolation<Hero>> thingsGoneWrong) {
-		// TODO Auto-generated method stub
 	}
 
 	public void encounterText() {

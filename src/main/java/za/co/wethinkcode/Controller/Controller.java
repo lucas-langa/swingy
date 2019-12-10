@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
 import za.co.wethinkcode.GameMap;
 import za.co.wethinkcode.MoveHero;
 import za.co.wethinkcode.heroes.AntiHeroFactory;
@@ -21,6 +24,7 @@ public class Controller {
 	private GameMap mGameMap;
 	private int action;
 	private Hero player;
+	private int battleOutcome = -1;
 
 	public enum gameState {
 		NEXT, START, SELECTION, CREATION, ERRORS, PLAY, RUN_FIGHT, FORCED_FIGHT, GAME_OVER, QUIT, LAST_LEVEL
@@ -81,9 +85,9 @@ public class Controller {
 				player = this.model.getPlayer();
 			}
 			currentState = gameState.PLAY;
-			break;
 		case PLAY:
 			this.mGameMap = new GameMap(player.getHeroLevel());
+			mGameMap.displayMap();
 			Scanner sc = new Scanner(System.in);
 			String move = null;
 			while (currentState == gameState.PLAY) {
@@ -114,7 +118,6 @@ public class Controller {
 								}
 							}
 						}
-
 						MoveHero.moveUp(mGameMap.heroY, mGameMap.heroX, mGameMap);
 					} else if (move.equals("s")) {
 						if (mGameMap.metVillain('s')) {
@@ -221,7 +224,9 @@ public class Controller {
 		if (gameMode.equalsIgnoreCase("console")) {
 			Views = new ConsoleViews();
 			gameMode = "console";
+			currentState = gameState.START;
 			runGame();
+			return;
 		} else if (gameMode.equalsIgnoreCase("gui")) {
 			Views = new GUIViews();
 			Views.welcomeText();
@@ -229,9 +234,6 @@ public class Controller {
 		} else {
 			return;
 		}
-		currentState = gameState.START;
-		model = theModel;
-
 	}
 
 	public class GUIButtons implements ActionListener {
@@ -244,27 +246,80 @@ public class Controller {
 				Views.selectHero(model.getHeroesFromDB());
 			
 			}
+			if (event.getActionCommand().equals("gimmeMap")){
+				Views.clearScreen();
+				((GUIViews) Views).makeMap(mGameMap = new GameMap(2));
+			}
 			if (event.getActionCommand().equals("ShowHeroStats")){
 				Views.peasantStats(Views.getChosenOne());
 			}
 			if (event.getActionCommand().equals("confirmDbHero")) {
-				System.out.println(Views.getChosenOne());
+				Views.getChosenOne();
 			}
+			
 			if (event.getActionCommand().equals("1.Create a new Hero")) {
 				Views.newGameView();
 			}
 			if (event.getActionCommand().equals("confirmPlayerName")) {
 				pName = Views.getPlayerName();
-				System.out.println(pName);
 			}
 			if (event.getActionCommand().equals("ConfirmClass")) {
 				try {
-					System.out.println(pClass = Views.getPlayerClass());
+					pClass = Views.getPlayerClass();
+					System.out.println(pClass);
 				} catch (IndexOutOfBoundsException e) {
-					System.out.println("Please select a class from the list");
+					((GUIViews) Views).displayError("Please select a class from the list");
+					pClass = null;
 				}
 			}
-			// if (event.getActionCommand().equals("up"))
+			if (event.getActionCommand().equals("saveNewHero")){
+				try {
+					if (pClass != null)
+						model.addHero(pName, pClass);
+					else if (pClass == null)
+					((GUIViews) Views).displayError("Please select a class from the list");
+				} catch (IllegalArgumentException e) {
+					((GUIViews) Views).displayError(e.getMessage());
+				}
+				if (model.getErrors() != null) {
+					Views.clearScreen();
+					Views.displayErrors(model.getErrors());
+					model.clearErrors();
+				}
+			}
+			if (player != null){
+				mGameMap = new GameMap(player.getHeroLevel());
+				String move = null;
+				if (event.getActionCommand().equals("n")) {
+					move = "n";
+					if (move.equals("n")) {
+						if (mGameMap.metVillain('n')) {
+							Views.encounterText();
+							if (Views.getAction() == 1) {
+								if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
+									currentState = gameState.GAME_OVER;
+									break;
+								} else if (battleOutcome == 1) {
+									Views.displayPlayerVictory();
+								}
+							} else if (Views.getAction() == 2) {
+								if (escapeChance() == 0) {
+									Views.displayEscapeFailure();
+									if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
+										currentState = gameState.GAME_OVER;
+										break;
+									} else if (battleOutcome == 1) {
+										Views.displayPlayerVictory();
+									}
+								} else {
+									Views.displayEscapeSuccess();
+								}
+							}
+						}
+						MoveHero.moveUp(mGameMap.heroY, mGameMap.heroX, mGameMap);
+					} 
+				}
+			}
 			// if (event.getActionCommand().equals("down"))
 			// if (event.getActionCommand().equals("left"))
 			// if (event.getActionCommand().equals("right"))

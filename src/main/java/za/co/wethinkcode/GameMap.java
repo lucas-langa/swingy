@@ -43,7 +43,9 @@ public class GameMap {
 			}
 		}
 	}
+
 	// String []choices = {"AntiHero", "DemonHero", "WarlockHero"};
+
 	public GameMap(final int heroLevel) {
 		this.y = (heroLevel - 1) * 5 + 10 - (heroLevel % 2);
 		this.x = this.y;
@@ -54,7 +56,7 @@ public class GameMap {
 		heroX = pos;
 		placeVillains(this);
 		this.map[pos][pos] = 'h';
-		displayMap();
+		// displayMap();
 	}
 
 	public boolean metVillain(char d) {

@@ -9,9 +9,13 @@ import java.awt.event.ActionListener;
 
 public interface DisplayInterface {
 	public void forceNewHero();
+
 	public void welcomeText();
+
 	public void displayPlayerVictory();
+
 	public void displayBattleLoss(int health);
+
 	public void newHeroClass();
 
 	public void newHeroName();
@@ -26,14 +30,16 @@ public interface DisplayInterface {
 
 	public void selectHero(List<Hero> heroes);
 
-
 	public void fightSim();
 
 	public void gameOver();
+
 	public void clearScreen();
 
 	public void displayEscapeFailure();
+
 	public void displayEscapeSuccess();
+
 	public void communicator(ActionListener ActionListener);
 
 	public int getAction();
@@ -45,8 +51,6 @@ public interface DisplayInterface {
 	public Hero getChosenOne();
 	
 	public void displayVictoryScreen(String heroName);
-	public void newGameView();
-	public void removePeasantStats();
 
-	// public void populateMap(int y, int x, GameMap map);
+	public void newGameView();
 }

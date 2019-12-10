@@ -69,7 +69,8 @@ public class ConsoleViews implements DisplayInterface {
 		System.out.println("So many things could have gone wrong but...");
 
 		for (ConstraintViolation<Hero> constraintViolation : thingsGoneWrong) {
-			System.out.println(constraintViolation.getMessage());
+			// System.out.println(constraintViolation.getMessage());
+			System.out.printf("%s\n", ((List<Hero>) constraintViolation).iterator().next().getMessage());
 		}
 	}
 

@@ -21,6 +21,7 @@ public class Model {
 	private int x, y;
 	private int heroY, heroX;
 	private Hero player;
+	Set<ConstraintViolation<Hero>> constraintViolations = null;
 
 	public	Hero getVillain(String antiType){
 		return (AntiHeroFactory.newHero(antiType));
@@ -40,18 +41,21 @@ public class Model {
 		return null;
 	}
 
+	public Set<ConstraintViolation<Hero>> getErrors(){
+		return constraintViolations;
+	}
+
+	public void clearErrors() {
+		constraintViolations.clear();
+	}
+
 	public void addHero(String name, String heroClass) {
-		System.out.println(name);
-		System.out.println(heroClass);
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 		this.player  = HeroFactory.newHero(name, heroClass);
-		Set<ConstraintViolation<Hero>> constraintViolations = validator.validate( player );
+		constraintViolations = validator.validate( player );
 		if (!isEmpty(constraintViolations))
-		{
-				System.out.printf("%s\n", constraintViolations.iterator().next().getMessage());
-				return ;
-		}
+			return ;
 		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(player);
