@@ -2,7 +2,6 @@ package za.co.wethinkcode.views;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 import java.awt.event.ActionListener;
@@ -293,5 +292,11 @@ public class ConsoleViews implements DisplayInterface {
 
 	public void displayEscapeSuccess(){
 		System.out.println("You managed to escape");
+	}
+
+	@Override
+	public void newGameView() {
+		// TODO Auto-generated method stub
+
 	}
 }

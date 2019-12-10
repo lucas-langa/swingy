@@ -2,8 +2,6 @@ package za.co.wethinkcode;
 
 import java.util.Random;
 
-import za.co.wethinkcode.views.DisplayInterface;
-
 public class GameMap {
 	public int[][] map;
 	public int x, y;
@@ -37,8 +35,8 @@ public class GameMap {
 		}
 	}
 
-	private void populateMap(final int y, final int x, DisplayInterface View) {
-		View.populateMap(y, x, this);
+	private void populateMap(final int y, final int x) {
+		// View.populateMap(y, x);
 		for (int i = 0; i < y; i++) {
 			for (int j = 0; j < x; j++) {
 				map[i][j] = '*';

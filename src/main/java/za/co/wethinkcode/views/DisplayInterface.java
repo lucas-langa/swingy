@@ -46,6 +46,7 @@ public interface DisplayInterface {
 	
 	public void displayVictoryScreen(String heroName);
 	public void newGameView();
+	public void removePeasantStats();
 
 	// public void populateMap(int y, int x, GameMap map);
 }

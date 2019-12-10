@@ -26,6 +26,8 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	private JButton confirmDbHero = new JButton("confirmDbHero");
 	private Hero chosenOne;
 	private List<Hero> heroes;
+	private JLabel[] stats = new JLabel[7];
+	private JButton ShowHeroStats = new JButton("ShowHeroStats");
 
 	public String getPlayerClass() {
 		return (classes[playerClassList.getSelectedIndex()]);
@@ -54,6 +56,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		this.heroList.setBounds(300, 200, 50, 50);
 		this.heroList.setVisible(true);
 		mainPanel.add(new JScrollPane(this.heroList));
+		mainPanel.add(ShowHeroStats);
 		mainPanel.add(confirmDbHero);
 	}
 
@@ -73,6 +76,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		heroCreationLabel.addActionListener(GUIButtons);
 		heroSelectionLabel.addActionListener(GUIButtons);
 		confirmDbHero.addActionListener(GUIButtons);
+		ShowHeroStats.addActionListener(GUIButtons);
 	}
 
 	public void newGameView() {
@@ -99,28 +103,32 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	}
 
 	public void peasantStats(Hero peasant) {
-		JLabel[] stats = {
-				this.heroName = new JLabel("<html><p>Hero Name " + peasant.getHeroName() + "</p></html>",
-						SwingConstants.LEFT),
-				this.heroClass = new JLabel("<html><p>Hero Class " + peasant.getHeroClass() + "</p></html>",
-						SwingConstants.LEFT),
-				this.heroAttack = new JLabel("<html><p>Hero Attack " + peasant.getHeroAttack() + "</p></html>",
-						SwingConstants.LEFT),
-				this.heroDefense = new JLabel("<html><p>Hero Defense " + peasant.getHeroDefense() + "</p></html>",
-						SwingConstants.LEFT),
-				this.heroExperience = new JLabel(
-						"<html><p>Hero Experience " + peasant.getHeroExperience() + "</p></html>", SwingConstants.LEFT),
-				this.heroHitPoints = new JLabel(
-						"<html><p>Hero Hit Points " + peasant.getHeroHitPoints() + "</p></html>", SwingConstants.LEFT),
-				this.heroLevel = new JLabel("<html><p>Hero Level " + peasant.getHeroLevel() + "</p></html>",
-						SwingConstants.LEFT) };
+		JTextArea stat = new JTextArea();
+		stats[0] = this.heroName = new JLabel("Hero Name " + peasant.getHeroName() + "\n", SwingConstants.LEFT);
+		stats[1] = this.heroClass = new JLabel("Hero Class " + peasant.getHeroClass() + "\n", SwingConstants.LEFT);
+		stats[2] = this.heroAttack = new JLabel("Hero Attack " + peasant.getHeroAttack() + "\n", SwingConstants.LEFT);
+		stats[3] = this.heroDefense = new JLabel("Hero Defense " + peasant.getHeroDefense() + "\n",
+				SwingConstants.LEFT);
+		stats[4] = this.heroExperience = new JLabel("Hero Experience " + peasant.getHeroExperience() + "\n",
+				SwingConstants.LEFT);
+		stats[5] = this.heroHitPoints = new JLabel("Hero Hit Points " + peasant.getHeroHitPoints() + "\n",
+				SwingConstants.LEFT);
+		stats[6] = this.heroLevel = new JLabel("Hero Level " + peasant.getHeroLevel() + "\n", SwingConstants.LEFT);
+		clearScreen();
 		for (JLabel jLabel : stats) {
-			mainPanel.add(jLabel);
+			stat.append(jLabel.getText());
 		}
+		mainPanel.add(stat);
+	}
+
+	public void removePeasantStats() {
+		for (JLabel jLabel : stats) {
+			mainPanel.remove(jLabel);
+		}
+		clearScreen();
 	}
 
 	public void clearScreen() {
-
 		mainPanel.revalidate();
 		this.revalidate();
 		this.repaint();
@@ -149,7 +157,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 
 		mainPanel.add(heroSelectionLabel);
 	}
-	
+
 	public void populateMap(int y, int x) {
 		gameMap = new JTextArea();
 		gameMap.setText("\n");

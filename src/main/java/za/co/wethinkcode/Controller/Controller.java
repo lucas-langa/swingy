@@ -17,7 +17,6 @@ import za.co.wethinkcode.views.GUIViews;
 public class Controller {
 	private Model model;
 	private DisplayInterface Views;
-	private String gameMode;
 	private List<Hero> Heroes;
 	private GameMap mGameMap;
 	private int action;
@@ -243,6 +242,10 @@ public class Controller {
 			if (event.getActionCommand().equals("2.Select an existing Hero")) {
 				Views.clearScreen();
 				Views.selectHero(model.getHeroesFromDB());
+			
+			}
+			if (event.getActionCommand().equals("ShowHeroStats")){
+				Views.peasantStats(Views.getChosenOne());
 			}
 			if (event.getActionCommand().equals("confirmDbHero")) {
 				System.out.println(Views.getChosenOne());
@@ -261,16 +264,12 @@ public class Controller {
 					System.out.println("Please select a class from the list");
 				}
 			}
-			if (event.getActionCommand().equals("up"))
-			if (event.getActionCommand().equals("down"))
-			if (event.getActionCommand().equals("left"))
-			if (event.getActionCommand().equals("right"))
+			// if (event.getActionCommand().equals("up"))
+			// if (event.getActionCommand().equals("down"))
+			// if (event.getActionCommand().equals("left"))
+			// if (event.getActionCommand().equals("right"))
 		}
 	}
 
-	public static void main(String[] args) {
-		Model model = new Model();
-		DisplayInterface Views = new ConsoleViews();
-		Controller gamecontroller = new Controller(model, "gui");
-	}
+	
 }
