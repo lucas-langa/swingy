@@ -1,6 +1,8 @@
 package za.co.wethinkcode.views;
 
 import javax.validation.ConstraintViolation;
+
+import za.co.wethinkcode.GameMap;
 import za.co.wethinkcode.heroes.Hero;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public interface DisplayInterface {
 
 	public void encounterText();
 
-	public void displayMap(int[][] map, int size);
+	public void displayMap(GameMap map);
 
 	public void peasantStats(Hero peasant);
 

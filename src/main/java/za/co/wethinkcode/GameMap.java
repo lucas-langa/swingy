@@ -36,7 +36,6 @@ public class GameMap {
 	}
 
 	private void populateMap(final int y, final int x) {
-		// View.populateMap(y, x);
 		for (int i = 0; i < y; i++) {
 			for (int j = 0; j < x; j++) {
 				map[i][j] = '*';
@@ -56,7 +55,6 @@ public class GameMap {
 		heroX = pos;
 		placeVillains(this);
 		this.map[pos][pos] = 'h';
-		// displayMap();
 	}
 
 	public boolean metVillain(char d) {
@@ -85,11 +83,10 @@ public class GameMap {
 	}
 
 	public boolean checkEdge() {
-		if (heroX == 0 || heroY == 0 || heroX == map.length - 1 || heroY == map[heroX].length - 1)
+		if (heroX == 0 || heroY == 0 || heroX == map.length - 1 || heroY == map[heroX].length - 1)	
 			return true;
 		return false;
 	}
-
 
 	public void displayMap() {
 		

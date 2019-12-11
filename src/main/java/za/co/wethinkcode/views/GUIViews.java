@@ -10,9 +10,6 @@ import za.co.wethinkcode.GameMap;
 import za.co.wethinkcode.heroes.Hero;
 
 public class GUIViews extends JFrame implements DisplayInterface {
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel;
 	private JButton confirmClass = new JButton("ConfirmClass");
@@ -101,6 +98,10 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		ShowHeroStats.addActionListener(GUIButtons);
 		gimmeMap.addActionListener(GUIButtons);
 		saveNewHero.addActionListener(GUIButtons);
+		up.addActionListener(GUIButtons);
+		down.addActionListener(GUIButtons);
+		left.addActionListener(GUIButtons);
+		right.addActionListener(GUIButtons);
 	}
 
 	public void newGameView() {
@@ -122,7 +123,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		return playerName.getText();
 	}
 
-	public void makeMap(GameMap map){
+/* 	public void makeMap(GameMap map){
 		guiMap.setFont(guiMap.getFont().deriveFont(20f));
 		for (int i = 0; i < map.heroX ; i++){
 			for (int j = 0; j < map.heroX; j++) {
@@ -132,8 +133,9 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		}
 		mainPanel.add(guiMap);
 	}
+ */
 
-	public void fightSim() {
+	public void fightSim  () {
 
 	}
 
@@ -165,7 +167,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 
 	public void clearScreen() {
 		mainPanel.revalidate();
-		mainPanel.removeAll();
+		// mainPanel.removeAll();
 		this.revalidate();
 		this.repaint();
 		mainPanel.repaint();
@@ -207,16 +209,26 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		mainPanel.add(gameMap);
 	}
 
-	public void displayMap(int[][] map, int size) {
-		int y = size, x = size;
-		for (int i = 0; i < y; i++) {
-			for (int j = 0; j < x; j++) {
-				System.out.printf("%c", map[i][j]);
+	public void displayMap(GameMap map) {
+		guiMap.setFont(guiMap.getFont().deriveFont(20f));
+		for (int i = 0; i < map.heroX ; i++){
+			for (int j = 0; j < map.heroX; j++) {
+				guiMap.append(Character.toString(map.map[i][j]));
 			}
-			System.out.print("\n");
+			guiMap.append("\n");
 		}
+		mainPanel.add(guiMap);
 	}
 
+	public void  setupGameView(GameMap map){
+		clearScreen();
+		displayMap(map);
+		mainPanel.add(up);
+		mainPanel.add(down);
+		mainPanel.add(left);
+		mainPanel.add(right);		
+	}
+	
 	@Override
 	public void forceNewHero() {
 		newHeroName();
@@ -266,7 +278,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	}
 
 	public void encounterText() {
-		// TODO Auto-generated method stub
+		System.out.println("You just moved");
 	}
 
 }

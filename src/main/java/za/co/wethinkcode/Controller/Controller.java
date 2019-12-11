@@ -248,14 +248,12 @@ public class Controller {
 			}
 			if (event.getActionCommand().equals("gimmeMap")){
 				Views.clearScreen();
-				((GUIViews) Views).makeMap(mGameMap = new GameMap(2));
+				((GUIViews) Views).setupGameView(mGameMap = new GameMap(2));
 			}
 			if (event.getActionCommand().equals("ShowHeroStats")){
 				Views.peasantStats(Views.getChosenOne());
 			}
-			if (event.getActionCommand().equals("confirmDbHero")) {
-				Views.getChosenOne();
-			}
+			
 			
 			if (event.getActionCommand().equals("1.Create a new Hero")) {
 				Views.newGameView();
@@ -272,6 +270,10 @@ public class Controller {
 					pClass = null;
 				}
 			}
+			if (event.getActionCommand().equals("confirmDbHero") || ) {
+				player = Views.getChosenOne();
+				
+			}
 			if (event.getActionCommand().equals("saveNewHero")){
 				try {
 					if (pClass != null)
@@ -287,42 +289,46 @@ public class Controller {
 					model.clearErrors();
 				}
 			}
-			if (player != null){
-				mGameMap = new GameMap(player.getHeroLevel());
+			// if (player != null){
+				mGameMap = new GameMap(2);/* (player.getHeroLevel() */
 				String move = null;
 				if (event.getActionCommand().equals("n")) {
-					move = "n";
-					if (move.equals("n")) {
-						if (mGameMap.metVillain('n')) {
-							Views.encounterText();
-							if (Views.getAction() == 1) {
-								if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
-									currentState = gameState.GAME_OVER;
-									break;
-								} else if (battleOutcome == 1) {
-									Views.displayPlayerVictory();
-								}
-							} else if (Views.getAction() == 2) {
-								if (escapeChance() == 0) {
-									Views.displayEscapeFailure();
-									if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
-										currentState = gameState.GAME_OVER;
-										break;
-									} else if (battleOutcome == 1) {
-										Views.displayPlayerVictory();
-									}
-								} else {
-									Views.displayEscapeSuccess();
-								}
-							}
-						}
-						MoveHero.moveUp(mGameMap.heroY, mGameMap.heroX, mGameMap);
-					} 
+					Views.encounterText();
+					// move = "n";
+					// if (move.equals("n")) {
+					// 	if (mGameMap.metVillain('n')) {
+					// 		Views.encounterText();
+					// 		if (Views.getAction() == 1) {
+					// 			if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
+					// 				currentState = gameState.GAME_OVER;
+					// 				// break;
+					// 			} else if (battleOutcome == 1) {
+					// 				Views.displayPlayerVictory();
+					// 			}
+					// 		} else if (Views.getAction() == 2) {
+					// 			if (escapeChance() == 0) {
+					// 				Views.displayEscapeFailure();
+					// 				if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
+					// 					currentState = gameState.GAME_OVER;
+					// 					// break;
+					// 				} else if (battleOutcome == 1) {
+					// 					Views.displayPlayerVictory();
+					// 				}
+					// 			} else {
+					// 				Views.displayEscapeSuccess();
+					// 			}
+					// 		}
+					// 	}
+					// 	MoveHero.moveUp(mGameMap.heroY, mGameMap.heroX, mGameMap);
+					// } 
 				}
-			}
-			// if (event.getActionCommand().equals("down"))
-			// if (event.getActionCommand().equals("left"))
-			// if (event.getActionCommand().equals("right"))
+			// }
+			if (event.getActionCommand().equals("s"))
+				{Views.encounterText();}
+			if (event.getActionCommand().equals("w"))
+				{Views.encounterText();}
+			if (event.getActionCommand().equals("e"))
+				{Views.encounterText();}
 		}
 	}
 
