@@ -70,7 +70,7 @@ public class ConsoleViews implements DisplayInterface {
 
 		for (ConstraintViolation<Hero> constraintViolation : thingsGoneWrong) {
 			// System.out.println(constraintViolation.getMessage());
-			System.out.printf("%s\n", ((List<Hero>) constraintViolation).iterator().next().getMessage());
+			System.out.printf("%s\n",  constraintViolation.getMessage());
 		}
 	}
 
@@ -297,6 +297,12 @@ public class ConsoleViews implements DisplayInterface {
 
 	@Override
 	public void newGameView() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void displayMap(GameMap map) {
 		// TODO Auto-generated method stub
 
 	}

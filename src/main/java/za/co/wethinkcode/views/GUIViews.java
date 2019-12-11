@@ -27,14 +27,18 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	private List<Hero> heroes;
 	private JLabel[] stats = new JLabel[7];
 	private JButton ShowHeroStats = new JButton("ShowHeroStats");
-	private JTextArea guiMap = new JTextArea();
+	private JTextArea guiMap; 
 	private JButton gimmeMap = new JButton("gimmeMap");
 	private JButton up = new JButton("n");
 	private JButton down = new JButton("s");
 	private JButton left = new JButton("w");
 	private JButton right = new JButton("e");
 	private JTextArea errors = new JTextArea();
+	private JTextArea encounterText;
 	private JButton saveNewHero = new JButton("saveNewHero");
+	private JButton fight = new JButton("fight");
+	private JButton flee = new JButton("flee");
+
 
 	public void displayErrors(Set<ConstraintViolation<Hero>> thingsGoneWrong){
 		for (ConstraintViolation<Hero> constraintViolation : thingsGoneWrong) {
@@ -102,6 +106,8 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		down.addActionListener(GUIButtons);
 		left.addActionListener(GUIButtons);
 		right.addActionListener(GUIButtons);
+		fight.addActionListener(GUIButtons);
+		flee.addActionListener(GUIButtons);
 	}
 
 	public void newGameView() {
@@ -122,18 +128,6 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	public String getPlayerName() {
 		return playerName.getText();
 	}
-
-/* 	public void makeMap(GameMap map){
-		guiMap.setFont(guiMap.getFont().deriveFont(20f));
-		for (int i = 0; i < map.heroX ; i++){
-			for (int j = 0; j < map.heroX; j++) {
-				guiMap.append(Character.toString(map.map[i][j]));
-			}
-			guiMap.append("\n");
-		}
-		mainPanel.add(guiMap);
-	}
- */
 
 	public void fightSim  () {
 
@@ -184,6 +178,13 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		this.setVisible(true);
 	}
 
+	public void updateMap(GameMap map){
+		mainPanel.remove(guiMap);
+		clearScreen();
+		displayMap(map);
+		clearScreen();
+	}
+
 	public void welcomeText() {
 
 		heroSelectionLabel.setBounds(100, 100, 100, 100);
@@ -191,28 +192,15 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		greeting.setBounds(100, 100, 100, 100);
 		mainPanel.add(greeting);
 		mainPanel.add(heroCreationLabel);
-
 		mainPanel.add(heroSelectionLabel);
 		mainPanel.add(gimmeMap);
 	}
 
-	public void populateMap(int y, int x) {
-		gameMap = new JTextArea();
-		gameMap.setText("\n");
-		for (int i = 0; i < y; i++) {
-			gameMap.append("   ");
-			for (int j = 0; j < x; j++) {
-				gameMap.append("*");
-			}
-			gameMap.append("\n\r");
-		}
-		mainPanel.add(gameMap);
-	}
-
 	public void displayMap(GameMap map) {
+		guiMap = new JTextArea(null,null,map.getSize(),map.getSize());
 		guiMap.setFont(guiMap.getFont().deriveFont(20f));
-		for (int i = 0; i < map.heroX ; i++){
-			for (int j = 0; j < map.heroX; j++) {
+		for (int i = 0; i < map.getSize() ; i++){
+			for (int j = 0; j < map.getSize(); j++) {
 				guiMap.append(Character.toString(map.map[i][j]));
 			}
 			guiMap.append("\n");
@@ -221,12 +209,13 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	}
 
 	public void  setupGameView(GameMap map){
+		mainPanel.removeAll();
 		clearScreen();
 		displayMap(map);
 		mainPanel.add(up);
 		mainPanel.add(down);
 		mainPanel.add(left);
-		mainPanel.add(right);		
+		mainPanel.add(right);
 	}
 	
 	@Override
@@ -237,31 +226,30 @@ public class GUIViews extends JFrame implements DisplayInterface {
 
 	@Override
 	public void displayPlayerVictory() {
-		// TODO Auto-generated method stub
-
+		JOptionPane.showMessageDialog(mainPanel, "You defeated the villain ^^", "Battle Outcome", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override
 	public void displayBattleLoss(int health) {
-		// TODO Auto-generated method stub
-
+		// (void)health;
+		JOptionPane.showMessageDialog(mainPanel, "You were brutalised and obviously lost, better luck next time", "Battle Outcome", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override
 	public void gameOver() {
-		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(mainPanel, "The game has ended", "Game over", JOptionPane.WARNING_MESSAGE);
 
 	}
 
 	@Override
 	public void displayEscapeFailure() {
-		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(mainPanel, "You failed to escape and were forced to fight", "Fight or Flee", JOptionPane.INFORMATION_MESSAGE);
 
 	}
 
 	@Override
 	public void displayEscapeSuccess() {
-		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(mainPanel, "You Managed to escape this time ^^", "Fight or Flee", JOptionPane.INFORMATION_MESSAGE);
 
 	}
 
@@ -273,12 +261,42 @@ public class GUIViews extends JFrame implements DisplayInterface {
 
 	@Override
 	public void displayVictoryScreen(String heroName) {
-		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(mainPanel, "You won the game ^^", "Game Over", JOptionPane.INFORMATION_MESSAGE);
 
 	}
 
+
+	@Override
 	public void encounterText() {
-		System.out.println("You just moved");
+		encounterText = new JTextArea("You have encountered an enemy, what do you do?");
+		mainPanel.add(encounterText);
+		mainPanel.add(fight);
+		mainPanel.add(flee);
+		// disableEncounterActions();
 	}
 
+	public void disableButtons()
+	{
+		this.up.setEnabled(false);
+		this.down.setEnabled(false);
+		this.left.setEnabled(false);
+		this.right.setEnabled(false);
+	}
+
+	public void enableButtons(){
+		up.setEnabled(true);
+		down.setEnabled(true);
+		left.setEnabled(true);
+		right.setEnabled(true);
+	}
+
+	public void disableEncounterActions(){
+		fight.setEnabled(false);
+		flee.setEnabled(false);
+	}
+
+	public void enableEncounterActions(){
+		fight.setEnabled(true);
+		flee.setEnabled(true);
+	}
 }

@@ -6,6 +6,14 @@ public class GameMap {
 	public int[][] map;
 	public int x, y;
 	public int heroY, heroX;
+	private int size;
+
+	/**
+	 * @return the size
+	 */
+	public int getSize() {
+		return size;
+	}
 
 	public void getHeroPos() {
 		for (int i = 0; i < this.y; i++) {
@@ -46,6 +54,7 @@ public class GameMap {
 	// String []choices = {"AntiHero", "DemonHero", "WarlockHero"};
 
 	public GameMap(final int heroLevel) {
+		size = (heroLevel - 1) * 5 + 10 - (heroLevel % 2);
 		this.y = (heroLevel - 1) * 5 + 10 - (heroLevel % 2);
 		this.x = this.y;
 		this.map = new int[this.y][this.x];
@@ -55,6 +64,8 @@ public class GameMap {
 		heroX = pos;
 		placeVillains(this);
 		this.map[pos][pos] = 'h';
+
+		displayMap();
 	}
 
 	public boolean metVillain(char d) {
