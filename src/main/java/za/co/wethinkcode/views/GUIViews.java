@@ -196,7 +196,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		guiMap.setFont(guiMap.getFont().deriveFont(20f));
 		for (int i = 0; i < map.getSize() ; i++){
 			for (int j = 0; j < map.getSize(); j++) {
-				guiMap.append(Character.toString(map.map[i][j]));
+				guiMap.append(Character.toString((char)map.map[i][j]));
 			}
 			guiMap.append("\n");
 		}

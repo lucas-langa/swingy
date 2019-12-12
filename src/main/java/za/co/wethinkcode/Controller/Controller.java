@@ -28,6 +28,26 @@ public class Controller {
 
 	private gameState currentState;
 
+	public Controller(Model theModel, String gameMode) {
+		this.model = theModel;
+
+		if (gameMode == null)
+		{
+			System.out.println("Accepted arguments are either gui or console.");
+			System.exit(0);
+		} else if (gameMode.equalsIgnoreCase("console")) {
+			Views = new ConsoleViews();
+			gameMode = "console";
+			currentState = gameState.START;
+			runGame();
+			return;
+		} else if (gameMode.equalsIgnoreCase("gui")) {
+			Views = new GUIViews();
+			Views.welcomeText();
+			Views.communicator(new GUIButtons());
+		}
+	}
+
 	public int fight(Hero player, Hero Villain) {
 		int outCome = -1;
 		int heroHealth = player.getHeroHitPoints();
@@ -39,12 +59,8 @@ public class Controller {
 		while (true) {
 			if ((chance.nextInt(5) % 2) == 0) {
 				villainHealth -= heroAttack - Villain.getHeroDefense();
-				System.out.println("player attacks for " + (heroAttack - Villain.getHeroDefense()) + " ,enemy has "
-						+ villainHealth);
 			} else {
 				heroHealth -= villainAttack - player.getHeroDefense();
-				System.out.println("villain attacks for " + (villainAttack - player.getHeroDefense()) + " ,player has "
-						+ heroHealth);
 			}
 			if (heroHealth <= 0 || villainHealth <= 0)
 				break;
@@ -202,6 +218,7 @@ public class Controller {
 					player.setHeroLevel(player.getHeroLevel() + 1);
 					this.mGameMap = new GameMap(player.getHeroLevel());
 					currentState = gameState.PLAY;
+					mGameMap.displayMap();
 					if (player.getHeroLevel() == 10) {
 						Views.displayVictoryScreen(this.player.getHeroName());
 						currentState = gameState.GAME_OVER;
@@ -214,24 +231,6 @@ public class Controller {
 		case GAME_OVER:
 			Views.gameOver();
 		default:
-		}
-	}
-
-	public Controller(Model theModel, String gameMode) {
-		this.model = theModel;
-		if (gameMode.equalsIgnoreCase("console")) {
-			Views = new ConsoleViews();
-			gameMode = "console";
-			currentState = gameState.START;
-			runGame();
-			return;
-		} else if (gameMode.equalsIgnoreCase("gui")) {
-			Views = new GUIViews();
-			Views.welcomeText();
-			Views.communicator(new GUIButtons());
-		} else {
-			System.out.println("Accepted arguments are either gui or console.");
-			System.exit(0);
 		}
 	}
 
@@ -301,8 +300,7 @@ public class Controller {
 					}
 					MoveHero.moveUp(mGameMap.heroY, mGameMap.heroX, mGameMap);
 					((GUIViews) Views).updateMap(mGameMap);
-				}
-				else if (event.getActionCommand().equals("s")) {
+				} else if (event.getActionCommand().equals("s")) {
 					Views.encounterText();
 					if (mGameMap.metVillain('s')) {
 						((GUIViews) Views).enableEncounterActions();
@@ -313,8 +311,7 @@ public class Controller {
 					MoveHero.moveDown(mGameMap.heroY, mGameMap.heroX, mGameMap);
 					((GUIViews) Views).updateMap(mGameMap);
 
-				}
-				else if (event.getActionCommand().equals("w")) {
+				} else if (event.getActionCommand().equals("w")) {
 					if (mGameMap.metVillain('w')) {
 						((GUIViews) Views).enableEncounterActions();
 						Views.encounterText();
@@ -323,8 +320,7 @@ public class Controller {
 					}
 					MoveHero.left(mGameMap.heroY, mGameMap.heroX, mGameMap);
 					((GUIViews) Views).updateMap(mGameMap);
-				}
-				else if (event.getActionCommand().equals("e")) {
+				} else if (event.getActionCommand().equals("e")) {
 					if (mGameMap.metVillain('e')) {
 						((GUIViews) Views).enableEncounterActions();
 						Views.encounterText();

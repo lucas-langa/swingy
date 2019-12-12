@@ -62,7 +62,6 @@ public class GameMap {
 		heroX = pos;
 		this.map[pos][pos] = 'h';
 		placeVillains(this);
-		System.out.println("POS "+pos);
 	}
 
 	public boolean metVillain(char d) {
@@ -98,8 +97,8 @@ public class GameMap {
 
 	public void displayMap() {
 		
-		for (int i = 0; i < y; i++) {
-			for (int j = 0; j < x; j++) {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
 				System.out.printf("%c", map[i][j]);
 			}
 			System.out.print("\n");

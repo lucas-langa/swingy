@@ -5,8 +5,8 @@ import za.co.wethinkcode.model.Model;
 
 
 public class Swingy {
-	public static void main(String args) {
+	public static void main(String[] args) {
 		Model model = new Model();
-		new Controller(model, args);
+		new Controller(model, args.length == 1 ? args[0] : null);
 	}
 }

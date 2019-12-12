@@ -24,7 +24,7 @@ public class FlankHeroBuilder implements HeroBuilder {
 	}
 
 	public void 	buildHeroAttack( ) {
-		this.hero.setHeroAttack( 10 );
+		this.hero.setHeroAttack( 15 );
 	}
 
 	public void 	buildHeroDefense( ) {

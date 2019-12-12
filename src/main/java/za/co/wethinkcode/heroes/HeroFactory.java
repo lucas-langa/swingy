@@ -2,8 +2,6 @@ package za.co.wethinkcode.heroes;
 
 public abstract class HeroFactory {
 	public static Hero newHero(String name, String heroClass ) {
-		System.out.println("ADD HERO" +name);
-		System.out.println("ADD HEROC"+heroClass);
 		Hero userHero = null;
 		HeroEngineer heroEngineer = null;
 		if (heroClass.equalsIgnoreCase("flank")) {

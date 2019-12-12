@@ -18,7 +18,7 @@ mapped to database tables. Database driver, location, userid and pw
         <class>za.co.wethinkcode.heroes.Hero</class>
         <properties>
             <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value="576756"/>
+            <property name="javax.persistence.jdbc.password" value="000000"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/swingy"/>
