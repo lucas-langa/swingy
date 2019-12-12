@@ -62,10 +62,9 @@ public class GameMap {
 		int pos = getMapMid();
 		heroY = pos;
 		heroX = pos;
-		placeVillains(this);
 		this.map[pos][pos] = 'h';
-
-		displayMap();
+		placeVillains(this);
+		System.out.println("POS "+pos);
 	}
 
 	public boolean metVillain(char d) {
@@ -110,8 +109,8 @@ public class GameMap {
 	}
 
 	public int getMapMid() {
-		if (this.x % 2 == 0)
-			return (this.x / 2);
-		return (this.x / 2 + 1);
+		if (this.size % 2 == 0)
+			return ((this.size / 2)-1);
+		return (this.size / 2);
 	}
 }

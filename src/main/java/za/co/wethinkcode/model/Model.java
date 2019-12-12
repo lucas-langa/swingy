@@ -16,7 +16,7 @@ import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 
 public class Model {
 	public static EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("za.co.wethinkcode.Swingy");
-	private List<Hero> heroes;
+	// private List<Hero> heroes;
 	private int[][] map;
 	private int x, y;
 	private int heroY, heroX;
@@ -31,8 +31,9 @@ public class Model {
 		EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			List<Hero> heroes = em.createQuery("SELECT h FROM Hero h", Hero.class).getResultList();
-			return heroes;
+			// List<Hero> heroes =
+			return  em.createQuery("SELECT h FROM Hero h", Hero.class).getResultList();
+			// heroes;
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		} finally {
@@ -136,6 +137,6 @@ public class Model {
 
 	public List<Hero> getHeroes()
 	{
-		return (this.heroes = getHeroesFromDB());
+		return (getHeroesFromDB());
 	}
 }

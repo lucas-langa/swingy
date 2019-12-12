@@ -274,7 +274,7 @@ public class Controller {
 					else if (pClass == null)
 						((GUIViews) Views).displayError("Please select a class from the list");
 				} catch (Exception e) {
-					((GUIViews) Views).displayError(/* e.getMessage() */"?");
+					((GUIViews) Views).displayError(e.getMessage());
 				}
 				System.out.println(model.getErrors().isEmpty());
 				if (!model.getErrors().isEmpty()) {
@@ -301,7 +301,7 @@ public class Controller {
 					MoveHero.moveUp(mGameMap.heroY, mGameMap.heroX, mGameMap);
 					((GUIViews) Views).updateMap(mGameMap);
 				}
-				if (event.getActionCommand().equals("s")) {
+				else if (event.getActionCommand().equals("s")) {
 					Views.encounterText();
 					if (mGameMap.metVillain('s')) {
 						((GUIViews) Views).enableEncounterActions();
@@ -313,7 +313,7 @@ public class Controller {
 					((GUIViews) Views).updateMap(mGameMap);
 
 				}
-				if (event.getActionCommand().equals("w")) {
+				else if (event.getActionCommand().equals("w")) {
 					if (mGameMap.metVillain('w')) {
 						((GUIViews) Views).enableEncounterActions();
 						Views.encounterText();
@@ -323,7 +323,7 @@ public class Controller {
 					MoveHero.left(mGameMap.heroY, mGameMap.heroX, mGameMap);
 					((GUIViews) Views).updateMap(mGameMap);
 				}
-				if (event.getActionCommand().equals("e")) {
+				else if (event.getActionCommand().equals("e")) {
 					if (mGameMap.metVillain('e')) {
 						((GUIViews) Views).enableEncounterActions();
 						Views.encounterText();
