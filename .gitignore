@@ -1,4 +1,4 @@
 *.class
 .vscode
-target/*
+target
 .idea
