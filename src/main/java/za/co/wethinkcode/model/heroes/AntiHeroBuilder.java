@@ -1,9 +1,9 @@
-package za.co.wethinkcode.heroes;
+package za.co.wethinkcode.model.heroes;
 
-public class TankHeroBuilder implements HeroBuilder {
+public class AntiHeroBuilder implements HeroBuilder {
 	public Hero hero;
 
-	public 			TankHeroBuilder( ) {
+	public 			AntiHeroBuilder( ) {
 		this.hero = new Hero();
 	}
 
@@ -12,27 +12,27 @@ public class TankHeroBuilder implements HeroBuilder {
 	}
 
 	public void 	buildHeroClass(  ) {
-		this.hero.setHeroClass( "Tank" );
+		this.hero.setHeroClass( "AntiHero" );
 	}
 
 	public void 	buildHeroLevel( ) {
-		this.hero.setHeroLevel( 0 );
+		this.hero.setHeroLevel( 2 );
 	}
 
 	public void 	buildHeroExperience( ) {
-		this.hero.setHeroExperience( 0 );
+		this.hero.setHeroExperience( 300 );
 	}
 
 	public void 	buildHeroAttack( ) {
-		this.hero.setHeroAttack( 7 );
+		this.hero.setHeroAttack( 10 );
 	}
 
 	public void 	buildHeroDefense( ) {
-		this.hero.setHeroDefense( 15 );
+		this.hero.setHeroDefense( 7 );
 	}
 
 	public void 	buildHitPoints( ) {
-		this.hero.setHeroHitPoints( 200 );
+		this.hero.setHeroHitPoints( 300 );
 	}
 
 	public Hero 	getHero( ) {

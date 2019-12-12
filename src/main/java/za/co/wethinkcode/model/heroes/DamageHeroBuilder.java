@@ -1,9 +1,9 @@
-package za.co.wethinkcode.heroes;
+package za.co.wethinkcode.model.heroes;
 
-public class DemonHeroBuilder implements HeroBuilder {
+public class DamageHeroBuilder implements HeroBuilder {
 	public Hero hero;
 
-	public 			DemonHeroBuilder( ) {
+	public 			DamageHeroBuilder( ) {
 		this.hero = new Hero();
 	}
 
@@ -12,30 +12,31 @@ public class DemonHeroBuilder implements HeroBuilder {
 	}
 
 	public void 	buildHeroClass(  ) {
-		this.hero.setHeroClass( "DemonHero" );
+		this.hero.setHeroClass( "Damage" );
 	}
 
 	public void 	buildHeroLevel( ) {
-		this.hero.setHeroLevel( 7 );
+		this.hero.setHeroLevel( 0 );
 	}
 
 	public void 	buildHeroExperience( ) {
-		this.hero.setHeroExperience( 2000 );
+		this.hero.setHeroExperience( 0 );
 	}
 
 	public void 	buildHeroAttack( ) {
-		this.hero.setHeroAttack( 60 );
+		this.hero.setHeroAttack( 13 );
 	}
 
 	public void 	buildHeroDefense( ) {
-		this.hero.setHeroDefense( 50 );
+		this.hero.setHeroDefense( 8 );
 	}
 
 	public void 	buildHitPoints( ) {
-		this.hero.setHeroHitPoints( 600 );
+		this.hero.setHeroHitPoints( 115 );
 	}
 
 	public Hero 	getHero( ) {
 		return ( this.hero );
 	}
+
 }

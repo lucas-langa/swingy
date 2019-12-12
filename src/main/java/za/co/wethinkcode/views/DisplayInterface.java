@@ -3,7 +3,7 @@ package za.co.wethinkcode.views;
 import javax.validation.ConstraintViolation;
 
 import za.co.wethinkcode.GameMap;
-import za.co.wethinkcode.heroes.Hero;
+import za.co.wethinkcode.model.heroes.Hero;
 
 import java.util.List;
 import java.util.Set;
@@ -43,8 +43,6 @@ public interface DisplayInterface {
 	public void displayEscapeSuccess();
 
 	public void communicator(ActionListener ActionListener);
-
-	public int getAction();
 
 	public String getPlayerClass();
 

@@ -1,7 +1,6 @@
 package za.co.wethinkcode.model;
 
-import za.co.wethinkcode.heroes.*;
-import za.co.wethinkcode.heroes.HeroFactory;
+import za.co.wethinkcode.model.heroes.*;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManagerFactory;
@@ -16,9 +15,6 @@ import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 
 public class Model {
 	public static EntityManagerFactory ENTITY_MANAGER_FACTORY;
-	private int[][] map;
-	private int x, y;
-	private int heroY, heroX;
 	private Hero player;
 	Set<ConstraintViolation<Hero>> constraintViolations = null;
 	

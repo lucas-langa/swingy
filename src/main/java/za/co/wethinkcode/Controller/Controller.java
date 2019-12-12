@@ -7,8 +7,8 @@ import java.util.Random;
 import java.util.Scanner;
 import za.co.wethinkcode.GameMap;
 import za.co.wethinkcode.MoveHero;
-import za.co.wethinkcode.heroes.AntiHeroFactory;
-import za.co.wethinkcode.heroes.Hero;
+import za.co.wethinkcode.model.heroes.AntiHeroFactory;
+import za.co.wethinkcode.model.heroes.Hero;
 import za.co.wethinkcode.model.Model;
 import za.co.wethinkcode.views.ConsoleViews;
 import za.co.wethinkcode.views.DisplayInterface;
@@ -88,10 +88,10 @@ public class Controller {
 		switch (currentState) {
 		case START:
 			Views.welcomeText();
-			if (Heroes.size() > 0 && Views.getAction() == 1) {
+			if (Heroes.size() > 0 && ((ConsoleViews) Views).getAction() == 1) {
 				Views.selectHero(Heroes);
 				this.player = Views.getChosenOne();
-			} else if (Views.getAction() == 2) {
+			} else if (((ConsoleViews) Views).getAction() == 2) {
 				Views.forceNewHero();
 				this.model.addHero(Views.getPlayerName(), Views.getPlayerClass());
 				player = this.model.getPlayer();
@@ -109,14 +109,14 @@ public class Controller {
 						if (mGameMap.metVillain('n')) {
 
 							Views.encounterText();
-							if (Views.getAction() == 1) {
+							if (((ConsoleViews) Views).getAction() == 1) {
 								if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
 									currentState = gameState.GAME_OVER;
 									break;
 								} else if (battleOutcome == 1) {
 									Views.displayPlayerVictory();
 								}
-							} else if (Views.getAction() == 2) {
+							} else if (((ConsoleViews) Views).getAction() == 2) {
 								if (escapeChance() == 0) {
 									Views.displayEscapeFailure();
 									if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
@@ -136,14 +136,14 @@ public class Controller {
 						if (mGameMap.metVillain('s')) {
 
 							Views.encounterText();
-							if (Views.getAction() == 1) {
+							if (((ConsoleViews) Views).getAction() == 1) {
 								if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
 									currentState = gameState.GAME_OVER;
 									break;
 								} else if (battleOutcome == 1) {
 									Views.displayPlayerVictory();
 								}
-							} else if (Views.getAction() == 2) {
+							} else if (((ConsoleViews) Views).getAction() == 2) {
 								if (escapeChance() == 0) {
 									Views.displayEscapeFailure();
 									if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
@@ -162,14 +162,14 @@ public class Controller {
 					} else if (move.equals("w")) {
 						if (mGameMap.metVillain('w')) {
 							Views.encounterText();
-							if (Views.getAction() == 1) {
+							if (((ConsoleViews) Views).getAction() == 1) {
 								if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
 									currentState = gameState.GAME_OVER;
 									break;
 								} else if (battleOutcome == 1) {
 									Views.displayPlayerVictory();
 								}
-							} else if (Views.getAction() == 2) {
+							} else if (((ConsoleViews) Views).getAction() == 2) {
 								if (escapeChance() == 0) {
 									Views.displayEscapeFailure();
 									if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
@@ -188,14 +188,14 @@ public class Controller {
 					} else if (move.equals("e")) {
 						if (mGameMap.metVillain('e')) {
 							Views.encounterText();
-							if (Views.getAction() == 1) {
+							if (((ConsoleViews) Views).getAction() == 1) {
 								if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
 									currentState = gameState.GAME_OVER;
 									break;
 								} else if (battleOutcome == 1) {
 									Views.displayPlayerVictory();
 								}
-							} else if (Views.getAction() == 2) {
+							} else if (((ConsoleViews) Views).getAction() == 2) {
 								if (escapeChance() == 0) {
 									Views.displayEscapeFailure();
 									if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
@@ -256,7 +256,6 @@ public class Controller {
 			if (event.getActionCommand().equals("ConfirmClass")) {
 				try {
 					pClass = Views.getPlayerClass();
-					System.out.println(pClass);
 				} catch (IndexOutOfBoundsException e) {
 					((GUIViews) Views).displayError("Please select a class from the list");
 					pClass = null;
@@ -276,13 +275,11 @@ public class Controller {
 				} catch (Exception e) {
 					((GUIViews) Views).displayError(e.getMessage());
 				}
-				System.out.println(model.getErrors().isEmpty());
 				if (!model.getErrors().isEmpty()) {
 					Views.clearScreen();
 					Views.displayErrors(model.getErrors());
 					model.clearErrors();
 				} else {
-					System.out.println("something else broke");
 					Views.clearScreen();
 					player = model.getPlayer();
 					mGameMap = new GameMap(player.getHeroLevel());
@@ -301,7 +298,7 @@ public class Controller {
 					MoveHero.moveUp(mGameMap.heroY, mGameMap.heroX, mGameMap);
 					((GUIViews) Views).updateMap(mGameMap);
 				} else if (event.getActionCommand().equals("s")) {
-					Views.encounterText();
+					
 					if (mGameMap.metVillain('s')) {
 						((GUIViews) Views).enableEncounterActions();
 						Views.encounterText();
@@ -327,6 +324,7 @@ public class Controller {
 						Views.clearScreen();
 						((GUIViews) Views).disableButtons();
 					}
+				
 					MoveHero.right(mGameMap.heroY, mGameMap.heroX, mGameMap);
 					((GUIViews) Views).updateMap(mGameMap);
 				}
@@ -339,6 +337,7 @@ public class Controller {
 					} else if (battleOutcome == 1) {
 						Views.displayPlayerVictory();
 						((GUIViews) Views).disableEncounterActions();
+						((GUIViews) Views).removeEncounterText();
 						((GUIViews) Views).enableButtons();
 					}
 				} else if (event.getActionCommand().equals("flee")) {
@@ -349,13 +348,14 @@ public class Controller {
 							System.exit(0);
 						} else if (battleOutcome == 1) {
 							Views.displayPlayerVictory();
+							((GUIViews) Views).removeEncounterText();
 							((GUIViews) Views).disableEncounterActions();
 							((GUIViews) Views).enableButtons();
 						}
 					} else {
 						((GUIViews) Views).disableEncounterActions();
 						((GUIViews) Views).enableButtons();
-
+						((GUIViews) Views).removeEncounterText();
 						Views.displayEscapeSuccess();
 					}
 				}

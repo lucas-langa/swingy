@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import za.co.wethinkcode.GameMap;
-import za.co.wethinkcode.heroes.Hero;
+import za.co.wethinkcode.model.heroes.Hero;
 
 public class GUIViews extends JFrame implements DisplayInterface {
 	private static final long serialVersionUID = 1L;
@@ -182,6 +182,10 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		clearScreen();
 	}
 
+	public void removeEncounterText(){
+		mainPanel.remove(encounterText);
+	}
+	
 	public void welcomeText() {
 		heroSelectionLabel.setBounds(100, 100, 100, 100);
 		heroCreationLabel.setBounds(100, 100, 100, 100);
@@ -249,12 +253,6 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	}
 
 	@Override
-	public int getAction() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void displayVictoryScreen(String heroName) {
 		JOptionPane.showMessageDialog(mainPanel, "You won the game ^^", "Game Over", JOptionPane.INFORMATION_MESSAGE);
 
@@ -267,7 +265,6 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		mainPanel.add(encounterText);
 		mainPanel.add(fight);
 		mainPanel.add(flee);
-		// disableEncounterActions();
 	}
 
 	public void disableButtons()

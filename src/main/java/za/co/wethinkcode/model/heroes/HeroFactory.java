@@ -1,4 +1,4 @@
-package za.co.wethinkcode.heroes;
+package za.co.wethinkcode.model.heroes;
 
 public abstract class HeroFactory {
 	public static Hero newHero(String name, String heroClass ) {

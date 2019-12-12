@@ -10,7 +10,7 @@ import javax.validation.ConstraintViolation;
 import java.util.InputMismatchException;
 
 import za.co.wethinkcode.GameMap;
-import za.co.wethinkcode.heroes.*;
+import za.co.wethinkcode.model.heroes.*;
 
 public class ConsoleViews implements DisplayInterface {
 	private String PlayerName;
