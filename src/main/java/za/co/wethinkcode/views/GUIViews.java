@@ -28,11 +28,11 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	private JLabel[] stats = new JLabel[7];
 	private JButton ShowHeroStats = new JButton("ShowHeroStats");
 	private JTextArea guiMap; 
-	private JButton gimmeMap = new JButton("gimmeMap");
+	// private JButton gimmeMap = new JButton("gimmeMap");
 	private JButton up = new JButton("n");
 	private JButton down = new JButton("s");
 	private JButton left = new JButton("w");
-	private JButton right = new JButton("e");
+	private JButton right = new JButton("e"); 
 	private JTextArea errors = new JTextArea();
 	private JTextArea encounterText;
 	private JButton saveNewHero = new JButton("saveNewHero");
@@ -100,7 +100,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		heroSelectionLabel.addActionListener(GUIButtons);
 		confirmDbHero.addActionListener(GUIButtons);
 		ShowHeroStats.addActionListener(GUIButtons);
-		gimmeMap.addActionListener(GUIButtons);
+//		gimmeMap.addActionListener(GUIButtons);
 		saveNewHero.addActionListener(GUIButtons);
 		up.addActionListener(GUIButtons);
 		down.addActionListener(GUIButtons);
@@ -193,7 +193,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 		mainPanel.add(greeting);
 		mainPanel.add(heroCreationLabel);
 		mainPanel.add(heroSelectionLabel);
-		mainPanel.add(gimmeMap);
+//		mainPanel.add(gimmeMap);
 	}
 
 	public void displayMap(GameMap map) {

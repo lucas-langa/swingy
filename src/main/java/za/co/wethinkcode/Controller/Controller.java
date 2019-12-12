@@ -5,10 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-
-import javax.swing.JOptionPane;
-import javax.swing.text.View;
-
 import za.co.wethinkcode.GameMap;
 import za.co.wethinkcode.MoveHero;
 import za.co.wethinkcode.heroes.AntiHeroFactory;
@@ -23,7 +19,6 @@ public class Controller {
 	private DisplayInterface Views;
 	private List<Hero> Heroes;
 	private GameMap mGameMap;
-	private int action;
 	private Hero player;
 	private int battleOutcome = -1;
 
@@ -33,10 +28,6 @@ public class Controller {
 
 	private gameState currentState;
 
-	public void getInput(int action) {
-		this.action = action;
-	}
-
 	public int fight(Hero player, Hero Villain) {
 		int outCome = -1;
 		int heroHealth = player.getHeroHitPoints();
@@ -44,10 +35,9 @@ public class Controller {
 		int heroAttack = player.getHeroAttack();
 		int villainAttack = Villain.getHeroAttack();
 
-		int idk;
 		Random chance = new Random();
 		while (true) {
-			if ((idk = chance.nextInt(5) % 2) == 0) {
+			if ((chance.nextInt(5) % 2) == 0) {
 				villainHealth -= heroAttack - Villain.getHeroDefense();
 				System.out.println("player attacks for " + (heroAttack - Villain.getHeroDefense()) + " ,enemy has "
 						+ villainHealth);
@@ -254,11 +244,6 @@ public class Controller {
 				Views.selectHero(model.getHeroesFromDB());
 
 			}
-			if (event.getActionCommand().equals("gimmeMap")) {
-				Views.clearScreen();
-				((GUIViews) Views).setupGameView(mGameMap = new GameMap(3));
-				player = model.getHeroesFromDB().get(0);
-			}
 			if (event.getActionCommand().equals("ShowHeroStats")) {
 				Views.peasantStats(Views.getChosenOne());
 			}
@@ -279,7 +264,8 @@ public class Controller {
 			}
 			if (event.getActionCommand().equals("confirmDbHero")) {
 				player = Views.getChosenOne();
-
+				mGameMap = new GameMap(player.getHeroLevel());
+				((GUIViews) Views).setupGameView(mGameMap);
 			}
 			if (event.getActionCommand().equals("saveNewHero")) {
 				try {
@@ -287,102 +273,108 @@ public class Controller {
 						model.addHero(pName, pClass);
 					else if (pClass == null)
 						((GUIViews) Views).displayError("Please select a class from the list");
-				} catch (IllegalArgumentException e) {
-					((GUIViews) Views).displayError(e.getMessage());
+				} catch (Exception e) {
+					((GUIViews) Views).displayError(/* e.getMessage() */"?");
 				}
-				if (model.getErrors() != null) {
-					// ((GUIViews)Views)Views.removeall();
+				System.out.println(model.getErrors().isEmpty());
+				if (!model.getErrors().isEmpty()) {
 					Views.clearScreen();
 					Views.displayErrors(model.getErrors());
 					model.clearErrors();
 				} else {
+					System.out.println("something else broke");
 					Views.clearScreen();
 					player = model.getPlayer();
+					mGameMap = new GameMap(player.getHeroLevel());
+					((GUIViews) Views).setupGameView(mGameMap);
 				}
 			}
 
-			// if (player != null) {
-			// mGameMap = new GameMap(2);
-			if (event.getActionCommand().equals("n")) {
-				if (mGameMap.metVillain('n')) {
-					((GUIViews) Views).enableEncounterActions();
+			if (player != null) {
+				if (event.getActionCommand().equals("n")) {
+					if (mGameMap.metVillain('n')) {
+						((GUIViews) Views).enableEncounterActions();
+						Views.encounterText();
+						Views.clearScreen();
+						((GUIViews) Views).disableButtons();
+					}
+					MoveHero.moveUp(mGameMap.heroY, mGameMap.heroX, mGameMap);
+					((GUIViews) Views).updateMap(mGameMap);
+				}
+				if (event.getActionCommand().equals("s")) {
 					Views.encounterText();
-					Views.clearScreen();
-					((GUIViews) Views).disableButtons();
+					if (mGameMap.metVillain('s')) {
+						((GUIViews) Views).enableEncounterActions();
+						Views.encounterText();
+						Views.clearScreen();
+						((GUIViews) Views).disableButtons();
+					}
+					MoveHero.moveDown(mGameMap.heroY, mGameMap.heroX, mGameMap);
+					((GUIViews) Views).updateMap(mGameMap);
+
 				}
-				MoveHero.moveUp(mGameMap.heroY, mGameMap.heroX, mGameMap);
-				((GUIViews) Views).updateMap(mGameMap);
-			}			
-			if (event.getActionCommand().equals("s")) {
-				Views.encounterText();
-				if (mGameMap.metVillain('s')){
-					((GUIViews) Views).enableEncounterActions();
-					Views.encounterText();
-					Views.clearScreen();
-					// ((GUIViews) Views).disableButtons();
+				if (event.getActionCommand().equals("w")) {
+					if (mGameMap.metVillain('w')) {
+						((GUIViews) Views).enableEncounterActions();
+						Views.encounterText();
+						Views.clearScreen();
+						((GUIViews) Views).disableButtons();
+					}
+					MoveHero.left(mGameMap.heroY, mGameMap.heroX, mGameMap);
+					((GUIViews) Views).updateMap(mGameMap);
 				}
-					// Views.encounterText();
-				MoveHero.moveDown(mGameMap.heroY, mGameMap.heroX, mGameMap);
-				((GUIViews) Views).updateMap(mGameMap);
-			}
-			if (event.getActionCommand().equals("w")) {
-				if (mGameMap.metVillain('w')){
-					((GUIViews) Views).enableEncounterActions();
-					Views.encounterText();
-					Views.clearScreen();
-					// ((GUIViews) Views).disableButtons();
+				if (event.getActionCommand().equals("e")) {
+					if (mGameMap.metVillain('e')) {
+						((GUIViews) Views).enableEncounterActions();
+						Views.encounterText();
+						Views.clearScreen();
+						((GUIViews) Views).disableButtons();
+					}
+					MoveHero.right(mGameMap.heroY, mGameMap.heroX, mGameMap);
+					((GUIViews) Views).updateMap(mGameMap);
 				}
-					// Views.encounterText();
-				MoveHero.left(mGameMap.heroY, mGameMap.heroX, mGameMap);
-				((GUIViews) Views).updateMap(mGameMap);
-			}
-			if (event.getActionCommand().equals("e")) {
-				if (mGameMap.metVillain('e'))
-				{
-					((GUIViews) Views).enableEncounterActions();
-					Views.encounterText();
-					Views.clearScreen();
-					// ((GUIViews) Views).disableButtons();
-				}
-					// Views.encounterText();
-				MoveHero.right(mGameMap.heroY, mGameMap.heroX, mGameMap);
-				((GUIViews) Views).updateMap(mGameMap);
-			}
-			
-			if (event.getActionCommand().equals("fight")) {
-				if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
-					currentState = gameState.GAME_OVER;
-					System.exit(0);
-					return;
-				} else if (battleOutcome == 1) {
-					Views.displayPlayerVictory();
-					((GUIViews) Views).enableButtons();
-				}
-			} else if (event.getActionCommand().equals("flee")) {
-				if (escapeChance() == 0) {
-					Views.displayEscapeFailure();
+
+				if (event.getActionCommand().equals("fight")) {
 					if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
 						currentState = gameState.GAME_OVER;
-
+						System.exit(0);
+						return;
 					} else if (battleOutcome == 1) {
 						Views.displayPlayerVictory();
+						((GUIViews) Views).disableEncounterActions();
+						((GUIViews) Views).enableButtons();
 					}
-				} else {
-					Views.displayEscapeSuccess();
+				} else if (event.getActionCommand().equals("flee")) {
+					if (escapeChance() == 0) {
+						Views.displayEscapeFailure();
+						if ((battleOutcome = fight(player, AntiHeroFactory.newHero("AntiHero"))) == 0) {
+							currentState = gameState.GAME_OVER;
+							System.exit(0);
+						} else if (battleOutcome == 1) {
+							Views.displayPlayerVictory();
+							((GUIViews) Views).disableEncounterActions();
+							((GUIViews) Views).enableButtons();
+						}
+					} else {
+						((GUIViews) Views).disableEncounterActions();
+						((GUIViews) Views).enableButtons();
+
+						Views.displayEscapeSuccess();
+					}
 				}
-			}
-			if (mGameMap.checkEdge()) {
-				player.setHeroLevel(player.getHeroLevel() + 1);
-				mGameMap = new GameMap(player.getHeroLevel());
-				currentState = gameState.PLAY;
-				if (player.getHeroLevel() == 10) {
-					Views.displayVictoryScreen(player.getHeroName());
-					currentState = gameState.GAME_OVER;
-					Views.peasantStats(player);
-					System.exit(0);
-			}
+				if (mGameMap.checkEdge()) {
+					player.setHeroLevel(player.getHeroLevel() + 1);
+					mGameMap = new GameMap(player.getHeroLevel());
+					((GUIViews) Views).updateMap(mGameMap);
+					currentState = gameState.PLAY;
+					if (player.getHeroLevel() == 10) {
+						Views.displayVictoryScreen(player.getHeroName());
+						currentState = gameState.GAME_OVER;
+						Views.peasantStats(player);
+						System.exit(0);
+					}
+				}
 			}
 		}
 	}
-
 }
