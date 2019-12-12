@@ -50,9 +50,7 @@ public class GameMap {
 			}
 		}
 	}
-
-	// String []choices = {"AntiHero", "DemonHero", "WarlockHero"};
-
+	
 	public GameMap(final int heroLevel) {
 		size = (heroLevel - 1) * 5 + 10 - (heroLevel % 2);
 		this.y = (heroLevel - 1) * 5 + 10 - (heroLevel % 2);

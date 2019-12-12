@@ -230,7 +230,8 @@ public class Controller {
 			Views.welcomeText();
 			Views.communicator(new GUIButtons());
 		} else {
-			return;
+			System.out.println("Accepted arguments are either gui or console.");
+			System.exit(0);
 		}
 	}
 
