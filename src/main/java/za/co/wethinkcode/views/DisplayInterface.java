@@ -10,7 +10,7 @@ import java.util.Set;
 import java.awt.event.ActionListener;
 
 public interface DisplayInterface {
-	public void forceNewHero();
+	public void forceNewHero(boolean force);
 
 	public void welcomeText();
 
@@ -53,4 +53,5 @@ public interface DisplayInterface {
 	public void displayVictoryScreen(String heroName);
 
 	public void newGameView();
+
 }

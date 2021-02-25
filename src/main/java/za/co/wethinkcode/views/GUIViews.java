@@ -218,7 +218,8 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	}
 	
 	@Override
-	public void forceNewHero() {
+	public void forceNewHero(boolean force) {
+		// (void)force;
 		newHeroName();
 		newHeroClass();
 	}

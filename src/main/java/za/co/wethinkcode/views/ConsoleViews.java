@@ -25,7 +25,7 @@ public class ConsoleViews implements DisplayInterface {
 	public Hero getChosenOne() {
 		return chosenOne;
 	}
-	
+
 	public void listHeroes(List<Hero> heroes) {
 		for (Hero hero : heroes) {
 			peasantStats(hero);
@@ -57,6 +57,9 @@ public class ConsoleViews implements DisplayInterface {
 				System.out.println("please enter some data");
 				input.next();
 			}
+			catch (NoSuchElementException e) {
+				System.exit(0);
+			}
 		}
 	}
 
@@ -69,13 +72,13 @@ public class ConsoleViews implements DisplayInterface {
 		System.out.println("So many things could have gone wrong but...");
 
 		for (ConstraintViolation<Hero> constraintViolation : thingsGoneWrong) {
-			// System.out.println(constraintViolation.getMessage());
-			System.out.printf("%s\n",  constraintViolation.getMessage());
+			System.out.printf("%s\n", constraintViolation.getMessage());
 		}
 	}
 
-	public void forceNewHero() {
-		System.out.println("Looks like there's no heroes for you to choose yet, please create one:");
+	public void forceNewHero(boolean force) {
+		System.out.println(force ? "Looks like there's no heroes for you to choose yet, please create one:"
+				: "Let's create a new Hero!");
 		newHeroName();
 		newHeroClass();
 	}
@@ -123,17 +126,17 @@ public class ConsoleViews implements DisplayInterface {
 			try {
 				action = input.nextInt();
 				switch (action) {
-				case 1:
-					playerClass = "flank";
-					break;
-				case 2:
-					playerClass = "damage";
-					break;
-				case 3:
-					playerClass = "tank";
-					break;
-				default:
-					break;
+					case 1:
+						playerClass = "flank";
+						break;
+					case 2:
+						playerClass = "damage";
+						break;
+					case 3:
+						playerClass = "tank";
+						break;
+					default:
+						break;
 				}
 				break;
 			} catch (InputMismatchException im) {
@@ -145,6 +148,8 @@ public class ConsoleViews implements DisplayInterface {
 			} catch (NullPointerException e) {
 				System.out.println("please pick a valid hero from 1 and ");
 				input.next();
+			} catch (NoSuchElementException e) {
+				System.exit(0);
 			}
 		}
 	}
@@ -160,7 +165,7 @@ public class ConsoleViews implements DisplayInterface {
 			try {
 				name = input.next();
 				PlayerName = name;
-				break;	
+				break;
 			} catch (InputMismatchException im) {
 				System.out.println("characters only, peasant");
 				input.next();
@@ -170,11 +175,13 @@ public class ConsoleViews implements DisplayInterface {
 			} catch (NullPointerException e) {
 				System.out.println("please type valid stuff");
 				input.next();
+			} catch (NoSuchElementException e) {
+				System.exit(0);
 			}
 		}
 		return;
 	}
-	
+
 	public void populateMap(int y, int x, GameMap map) {
 		for (int i = 0; i < y; i++) {
 			for (int j = 0; j < x; j++) {
@@ -186,8 +193,7 @@ public class ConsoleViews implements DisplayInterface {
 	public void encounterText() {
 		System.out.println("/*********************************************************/\n"
 				+ "/*			You have encountered an enemy.   */\n"
-				+ "/*			What do you want to do?	         */\n"
-				+ "/*			1.Fight			2.Flee	 */\n"
+				+ "/*			What do you want to do?	         */\n" + "/*			1.Fight			2.Flee	 */\n"
 				+ "/*********************************************************/\n");
 		while (true) {
 			try {
@@ -205,18 +211,20 @@ public class ConsoleViews implements DisplayInterface {
 			} catch (NullPointerException e) {
 				System.out.println("please pick a valid option from 1 and 2");
 				input.next();
+			} catch (NoSuchElementException e) {
+				System.out.println("Leaving so soon?");
 			}
 		}
 	}
 
-	public void displayPlayerVictory(){
+	public void displayPlayerVictory() {
 		System.out.println("Congrats you defeated that villain ^^");
 	}
 
-	public void gameOver(){
+	public void gameOver() {
 		System.out.println("It's over for you");
 	}
-	
+
 	public void displayMap(int[][] map, int size) {
 		int y = size, x = size;
 		for (int i = 0; i < y; i++) {
@@ -227,8 +235,8 @@ public class ConsoleViews implements DisplayInterface {
 		}
 	}
 
-	public void displayBattleLoss(int health){
-		System.out.println("you lost, you were brutalized:  and left with"+ health+" health");
+	public void displayBattleLoss(int health) {
+		System.out.println("you lost, you were brutalized:  and left with" + health + " health");
 	}
 
 	public void peasantStats(Hero Peasant) {
@@ -246,7 +254,7 @@ public class ConsoleViews implements DisplayInterface {
 		int choice;
 		int loop = 0;
 		chosenOne = null;
-	
+
 		if (limit > 0) {
 			System.out.println(
 					"Here's a list of available heroes, choose by typing the corresponding number and press enter: \n");
@@ -268,14 +276,14 @@ public class ConsoleViews implements DisplayInterface {
 				} catch (InputMismatchException im) {
 					System.out.println("numbers only, peasant");
 					input.next();
-				} catch (NoSuchElementException nose) {
-					System.out.println("Something happened, try again");
-					loop = 0;
 				} catch (IllegalStateException ise) {
 					System.out.println("OOf");
 					loop = 0;
 				} catch (NullPointerException e) {
 					System.out.println("please pick a valid hero from 1 and " + (limit - 1));
+				} catch (NoSuchElementException e) {
+					System.exit(0);
+					loop = 0;
 				}
 			}
 		} else {
@@ -287,11 +295,11 @@ public class ConsoleViews implements DisplayInterface {
 		System.out.println("Congratulations " + heroName + ", you have won");
 	}
 
-	public void displayEscapeFailure(){
+	public void displayEscapeFailure() {
 		System.out.println("Sorry you were unable to escape and forced to fight");
 	}
 
-	public void displayEscapeSuccess(){
+	public void displayEscapeSuccess() {
 		System.out.println("You managed to escape");
 	}
 
