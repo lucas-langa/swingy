@@ -1,1 +1,1 @@
-CREATE TABLE IF NOT EXISTS heroes(  heroID INT(3) AUTO_INCREMENT ,heroName  VARCHAR(15),  heroClass  VARCHAR(15), heroLevel INT, heroExperience INT, heroAttack INT, heroDefense INT, heroHitPoints INT);
+CREATE TABLE IF NOT EXISTS heroes(  heroID INT(3) AUTO_INCREMENT PRIMARY KEY,heroName  VARCHAR(15),  heroClass  VARCHAR(15), heroLevel INT, heroExperience INT, heroAttack INT, heroDefense INT, heroHitPoints INT);

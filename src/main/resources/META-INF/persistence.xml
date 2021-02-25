@@ -17,11 +17,11 @@ mapped to database tables. Database driver, location, userid and pw
         <!-- Define the object that should be persisted in the database -->
         <class>za.co.wethinkcode.heroes.Hero</class>
         <properties>
-            <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value="000000"/>
+            <property name="javax.persistence.jdbc.user" value="lA9glROhze"/>
+            <property name="javax.persistence.jdbc.password" value="6tRf46nSbJ"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/swingy"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://remotemysql.com/lA9glROhze"/>
             <property name="hibernate.connection.autocommit" value="false"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.connection.CharSet" value="utf8"/>
