@@ -57,7 +57,7 @@ public class Model {
 			Validator validator = factory.getValidator();
 			this.player  = HeroFactory.newHero(name, heroClass);
 			constraintViolations = validator.validate( player );
-			if (!isEmpty(constraintViolations))
+			if (constraintViolations == null || !isEmpty(constraintViolations))
 				return ;
 			EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
 			entityManager.getTransaction().begin();

@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
+
 import za.co.wethinkcode.GameMap;
 import za.co.wethinkcode.MoveHero;
 import za.co.wethinkcode.model.heroes.AntiHeroFactory;
@@ -13,6 +15,7 @@ import za.co.wethinkcode.model.Model;
 import za.co.wethinkcode.views.ConsoleViews;
 import za.co.wethinkcode.views.DisplayInterface;
 import za.co.wethinkcode.views.GUIViews;
+import javax.validation.ConstraintViolation;
 
 public class Controller {
 	private Model model;
@@ -238,14 +241,19 @@ public class Controller {
 	}
 
 	public class GUIButtons implements ActionListener {
-		private String pName;
-		private String pClass;
+		private String playerName = "";
+		private String playerClass = "";
+		private List<Hero> Heroes = model.getHeroesFromDB();
+		Set<ConstraintViolation<Hero>> constraintViolations = null;
 
 		public void actionPerformed(ActionEvent event) {
 			if (event.getActionCommand().equals("2.Select an existing Hero")) {
 				Views.clearScreen();
-				Views.selectHero(model.getHeroesFromDB());
-
+				if (Heroes.isEmpty()) {
+					((GUIViews) Views)
+							.displayError("There are no heroes available for you to choose, Please create one");
+				} else
+					Views.selectHero(this.Heroes);
 			}
 			if (event.getActionCommand().equals("ShowHeroStats")) {
 				Views.peasantStats(Views.getChosenOne());
@@ -254,14 +262,19 @@ public class Controller {
 				Views.newGameView();
 			}
 			if (event.getActionCommand().equals("confirmPlayerName")) {
-				pName = Views.getPlayerName();
+				try {
+					playerName = Views.getPlayerName();
+				} catch (Exception e) {
+					((GUIViews) Views).displayError("Please enter a name");
+				}
+
 			}
 			if (event.getActionCommand().equals("ConfirmClass")) {
 				try {
-					pClass = Views.getPlayerClass();
+					playerClass = Views.getPlayerClass();
 				} catch (IndexOutOfBoundsException e) {
 					((GUIViews) Views).displayError("Please select a class from the list");
-					pClass = null;
+					playerClass = null;
 				}
 			}
 			if (event.getActionCommand().equals("confirmDbHero")) {
@@ -271,23 +284,41 @@ public class Controller {
 			}
 			if (event.getActionCommand().equals("saveNewHero")) {
 				try {
-					if (pClass != null)
-						model.addHero(pName, pClass);
-					else if (pClass == null)
-						((GUIViews) Views).displayError("Please select a class from the list");
+					playerClass = Views.getPlayerClass();
+					playerName = Views.getPlayerName();
+					if (playerClass != null && playerName != null)
+						model.addHero(playerName, playerClass);
+					else if (playerClass == null || playerName == null)
+						((GUIViews) Views).displayError(playerClass == null ? "Please select a class from the list"
+								: "Please enter a name for your hero");
 				} catch (Exception e) {
 					((GUIViews) Views).displayError(e.getMessage());
 				}
-				if (!model.getErrors().isEmpty()) {
-					Views.clearScreen();
-					Views.displayErrors(model.getErrors());
-					model.clearErrors();
-				} else {
+				try {
+						if (model.getErrors().isEmpty()) {
 					Views.clearScreen();
 					player = model.getPlayer();
 					mGameMap = new GameMap(player.getHeroLevel());
 					((GUIViews) Views).setupGameView(mGameMap);
+
+				} else {
+					try {
+							constraintViolations = model.getErrors();
+					Views.clearScreen();
+					if (constraintViolations == null || constraintViolations.isEmpty())
+						((GUIViews) Views).displayError("something went wrong");
+					else
+						Views.displayErrors(constraintViolations);
+					model.clearErrors();
+					} catch (Exception e) {
+						((GUIViews) Views).displayError("something went wrong");
+					}
+				
 				}
+				} catch (Exception e) {
+					((GUIViews) Views).displayError("something went wrong");
+				}
+			
 			}
 
 			if (player != null) {

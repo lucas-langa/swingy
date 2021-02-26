@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "heroes")
+@NotNull(message = "your hero has no info")
 public class Hero implements Serializable, HeroStats {
 
 	private static final long 		serialVersionUID = 1L;
@@ -27,6 +28,7 @@ public class Hero implements Serializable, HeroStats {
 	@NotBlank(message = "You cannot have a blank hero name")
 	private String					heroName;
 	@NotNull(message = "hero class can't be null, Not funny ")
+	@Size(message = "you should select a hero class")
 	@NotBlank(message = "hero class Should not be blank")
 	private String					heroClass;
 	private int						heroLevel;
