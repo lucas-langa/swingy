@@ -9,13 +9,11 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "heroes")
-@NotNull(message = "your hero has no info")
 public class Hero implements Serializable, HeroStats {
 
 	private static final long 		serialVersionUID = 1L;
 
     // @Id
-	// public Long getId() { return id; }
 	public void setId(Integer heroID) { this.heroID = heroID;}
 	/*useless*/
 	@Id

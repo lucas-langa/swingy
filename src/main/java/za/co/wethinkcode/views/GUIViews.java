@@ -17,7 +17,14 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	private JButton heroSelectionLabel = new JButton("2.Select an existing Hero");
 	private JButton heroCreationLabel = new JButton("1.Create a new Hero");
 	private JLabel greeting = new JLabel("Welcome to swingy");
-	private JLabel heroName, heroClass, heroAttack, heroDefense, heroExperience, heroHitPoints, heroLevel, classLabel;
+	private JLabel heroName;
+	private JLabel  heroClass;
+	private JLabel  heroAttack;
+	private JLabel  heroDefense;
+	private JLabel  heroExperience;
+	private JLabel  heroHitPoints;
+	private JLabel  heroLevel;
+	private JLabel classLabel;
 	private JTextField playerName = new JTextField(20);
 	private JButton confirmPlayerName = new JButton("confirmPlayerName");
 	private final String[] classes = { "Damage", "Tank", "Flank" };
@@ -128,7 +135,7 @@ public class GUIViews extends JFrame implements DisplayInterface {
 	}
 
 	public void fightSim  () {
-
+		// not necessary
 	}
 
 	public void peasantStats(Hero peasant) {

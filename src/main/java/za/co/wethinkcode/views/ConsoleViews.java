@@ -226,7 +226,8 @@ public class ConsoleViews implements DisplayInterface {
 	}
 
 	public void displayMap(int[][] map, int size) {
-		int y = size, x = size;
+		int y = size;
+		int x = size;
 		for (int i = 0; i < y; i++) {
 			for (int j = 0; j < x; j++) {
 				System.out.printf("%c", map[i][j]);
